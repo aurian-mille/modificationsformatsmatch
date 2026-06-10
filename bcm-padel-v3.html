@@ -1,0 +1,2130 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>BCM Sports · Padel</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bcm:#7B3F8C;--bcm-d:#5c2e6b;--bcm-l:#a467b5;--bcm-xl:#d4b0db;--bcm-dim:rgba(123,63,140,0.12);
+  --gold:#c9a84c;--gold-l:#e8c96a;--gold-dim:rgba(201,168,76,0.12);
+  --silver:#8a8fa0;--bronze:#a0622a;
+  --bg:#060408;--s1:#0c080f;--s2:#120d17;--s3:#19121f;--s4:#211828;--s5:#2a1e34;
+  --border:rgba(123,63,140,0.15);--border2:rgba(123,63,140,0.3);--border3:rgba(123,63,140,0.5);
+  --text:#ede8f2;--text2:#8a7a96;--text3:#4a3858;--text4:#2d1e3a;
+  --green:#2ecc8a;--green-dim:rgba(46,204,138,0.1);
+  --red:#e05555;--red-dim:rgba(224,85,85,0.1);
+  --orange:#e08c2a;--orange-dim:rgba(224,140,42,0.12);
+  --r:14px;--rs:9px;--rxl:22px;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{min-height:100%;background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;font-size:15px;line-height:1.5;overflow-x:hidden}
+body{padding-bottom:70px;background-image:radial-gradient(ellipse 80% 40% at 50% -10%,rgba(123,63,140,0.15) 0%,transparent 70%)}
+
+/* ══ TOPBAR ══ */
+.topbar{height:64px;padding:0 20px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;background:rgba(6,4,8,0.92);border-bottom:1px solid var(--border2);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px)}
+.logo-wrap{display:flex;align-items:center;gap:12px}
+.logo-badge{width:40px;height:40px;border-radius:10px;background:linear-gradient(135deg,var(--bcm-d) 0%,var(--bcm) 50%,var(--bcm-l) 100%);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:15px;font-weight:700;color:rgba(255,255,255,0.95);letter-spacing:1px;box-shadow:0 0 16px rgba(123,63,140,0.4),inset 0 1px 0 rgba(255,255,255,0.15)}
+.logo-text-wrap{line-height:1.2}
+.logo-main{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;letter-spacing:2px;color:var(--bcm-xl)}
+.logo-main em{font-style:normal;color:var(--text2);font-weight:400}
+.logo-tagline{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--text3)}
+.org-pill{display:flex;align-items:center;gap:7px;background:var(--s3);border:1px solid var(--border2);border-radius:var(--rxl);padding:7px 14px;font-size:11px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--text2);cursor:pointer;transition:.2s}
+.org-pill:hover{border-color:var(--bcm-l);color:var(--bcm-l)}
+.org-pill.on{background:linear-gradient(135deg,rgba(123,63,140,0.25),rgba(201,168,76,0.1));border-color:var(--gold);color:var(--gold-l);box-shadow:0 0 12px rgba(201,168,76,0.15)}
+.org-led{width:7px;height:7px;border-radius:50%;background:var(--text4);transition:.3s}
+.org-pill.on .org-led{background:var(--gold);box-shadow:0 0 6px var(--gold)}
+
+/* ══ TABS ══ */
+.tabs{display:flex;background:var(--s1);border-bottom:1px solid var(--border);overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab{flex:0 0 auto;padding:14px 20px;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--text3);cursor:pointer;border-bottom:2px solid transparent;transition:.2s;white-space:nowrap}
+.tab.active{color:var(--bcm-xl);border-bottom-color:var(--bcm)}
+.tab-content{display:none;padding:20px 16px}
+.tab-content.active{display:block}
+
+/* ══ NAV BAR ══ */
+.nav-bar{position:fixed;bottom:0;left:0;right:0;background:rgba(6,4,8,0.95);border-top:1px solid var(--border2);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);display:flex;z-index:100}
+.nav-btn{flex:1;padding:10px 4px 12px;background:none;border:none;color:var(--text3);font-size:9px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:4px;transition:.2s;font-family:'DM Sans',sans-serif}
+.nav-btn svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;transition:.2s}
+.nav-btn.active{color:var(--bcm-l)}
+.nav-btn.active svg{stroke:var(--bcm-l);filter:drop-shadow(0 0 5px rgba(164,103,181,0.5))}
+
+/* ══ CARDS ══ */
+.card{background:var(--s1);border:1px solid var(--border);border-radius:var(--r);padding:18px 16px;margin-bottom:12px;position:relative;overflow:hidden}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(164,103,181,0.25),transparent)}
+.card-title{font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:600;letter-spacing:.8px;color:var(--bcm-xl);margin-bottom:14px}
+
+/* ══ SECTION TITLES ══ */
+.section-title{font-size:9px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--text3);margin:22px 0 12px;display:flex;align-items:center;gap:12px}
+.section-title::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,var(--border),transparent)}
+
+/* ══ BUTTONS ══ */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 22px;border-radius:var(--rs);font-family:'DM Sans',sans-serif;font-weight:600;font-size:13px;cursor:pointer;border:none;transition:.15s;letter-spacing:.3px}
+.btn:active{transform:scale(.97)}
+.btn:disabled{opacity:.3;cursor:not-allowed;transform:none}
+.btn-primary{background:linear-gradient(135deg,var(--bcm-d),var(--bcm));color:#fff;box-shadow:0 3px 14px rgba(123,63,140,0.4)}
+.btn-primary:hover{box-shadow:0 5px 20px rgba(123,63,140,0.55)}
+.btn-gold{background:linear-gradient(135deg,#8a6820,var(--gold));color:#1a1006;font-weight:700;box-shadow:0 3px 14px rgba(201,168,76,0.3)}
+.btn-success{background:var(--green-dim);color:var(--green);border:1px solid rgba(46,204,138,0.3)}
+.btn-danger{background:var(--red-dim);color:var(--red);border:1px solid rgba(224,85,85,0.25)}
+.btn-outline{background:transparent;border:1px solid var(--border2);color:var(--text2)}
+.btn-outline:hover{border-color:var(--bcm-l);color:var(--bcm-l)}
+.btn-ghost{background:var(--s3);border:1px solid var(--border);color:var(--text2)}
+.btn-ghost:hover{border-color:var(--bcm-l);color:var(--bcm-l)}
+.btn-orange{background:var(--orange-dim);color:var(--orange);border:1px solid rgba(224,140,42,0.3)}
+.btn-sm{padding:8px 14px;font-size:12px}
+.btn-xs{padding:5px 11px;font-size:11px}
+.btn-block{width:100%;margin-bottom:8px}
+
+/* ══ FORMS ══ */
+label{display:block;font-size:10px;font-weight:700;color:var(--text3);margin-bottom:6px;letter-spacing:1px;text-transform:uppercase}
+input,select,textarea{width:100%;background:var(--s2);border:1px solid var(--border2);border-radius:var(--rs);padding:12px 14px;color:var(--text);font-size:14px;font-family:'DM Sans',sans-serif;transition:.2s;-webkit-appearance:none;appearance:none}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--bcm-l);background:var(--s3);box-shadow:0 0 0 3px rgba(123,63,140,0.1)}
+.form-group{margin-bottom:14px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.form-row-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+
+/* ══ SCORE INPUT STYLES ══ */
+.score-inp{width:72px!important;text-align:center;font-size:28px!important;font-weight:700!important;padding:10px 6px!important;border:1.5px solid var(--border2)!important;color:var(--gold-l)!important;background:var(--s3)!important;font-family:'Cormorant Garamond',serif!important}
+.score-inp:focus{border-color:var(--bcm-l)!important;color:var(--text)!important}
+.score-inp-lg{width:90px!important;font-size:36px!important;padding:14px 8px!important}
+.score-btn-row{display:flex;align-items:center;gap:8px;justify-content:center}
+.score-stepper{display:flex;flex-direction:column;align-items:center;gap:6px}
+.score-stepper-val{font-family:'Cormorant Garamond',serif;font-size:40px;font-weight:700;color:var(--gold-l);line-height:1;min-width:60px;text-align:center}
+.score-stepper-btn{width:44px;height:44px;border-radius:50%;border:1px solid var(--border2);background:var(--s3);color:var(--text);font-size:22px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.15s;font-weight:300}
+.score-stepper-btn:hover{border-color:var(--bcm-l);color:var(--bcm-l);background:var(--s4)}
+.score-stepper-btn:active{transform:scale(.93)}
+.score-teams-row{display:flex;align-items:flex-start;gap:12px;margin-bottom:20px}
+.score-team-col{flex:1;display:flex;flex-direction:column;align-items:center;gap:8px}
+.score-team-name{font-size:12px;font-weight:700;color:var(--text2);letter-spacing:.3px;text-align:center;line-height:1.3}
+.score-vs{font-family:'Cormorant Garamond',serif;font-size:24px;color:var(--text3);padding-top:50px}
+.score-set-row{display:flex;align-items:center;gap:8px;padding:10px 14px;background:var(--s2);border-radius:var(--rs);margin-bottom:8px;border:1px solid var(--border)}
+.score-set-label{font-size:11px;font-weight:700;color:var(--text3);letter-spacing:.5px;text-transform:uppercase;width:50px;flex-shrink:0}
+.score-set-inputs{display:flex;align-items:center;gap:8px;flex:1;justify-content:center}
+.score-set-sep{font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--text3)}
+.winner-select-row{display:flex;gap:8px;margin-top:4px}
+.winner-btn{flex:1;padding:14px 10px;border-radius:var(--rs);border:2px solid var(--border2);background:var(--s2);color:var(--text2);font-weight:700;font-size:13px;cursor:pointer;transition:.2s;text-align:center;line-height:1.3}
+.winner-btn.selected{border-color:var(--bcm);background:var(--bcm-dim);color:var(--bcm-xl)}
+.winner-btn:hover:not(.selected){border-color:var(--bcm-l)}
+
+/* ══ FORMAT BADGE ══ */
+.fmt-badge{display:inline-flex;align-items:center;gap:5px;font-size:10px;font-weight:700;padding:3px 9px;border-radius:20px;letter-spacing:.5px;text-transform:uppercase}
+.fmt-sets{background:rgba(123,63,140,0.15);color:var(--bcm-l)}
+.fmt-games{background:rgba(46,204,138,0.1);color:var(--green)}
+.fmt-supertb{background:rgba(201,168,76,0.12);color:var(--gold)}
+.fmt-tb{background:rgba(201,168,76,0.08);color:var(--gold-l)}
+.fmt-time{background:rgba(224,140,42,0.12);color:var(--orange)}
+.fmt-timecap{background:rgba(224,140,42,0.18);color:var(--orange)}
+.fmt-custom{background:rgba(138,143,160,0.12);color:var(--silver)}
+
+/* ══ FORMAT CONFIG PANEL ══ */
+.fmt-panel{background:var(--s2);border:1px solid var(--border);border-radius:var(--rs);padding:14px;margin-bottom:10px}
+.fmt-panel-title{font-size:11px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--text2);margin-bottom:10px;display:flex;align-items:center;justify-content:space-between}
+.fmt-selector{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+.fmt-opt{padding:6px 12px;border-radius:20px;border:1px solid var(--border2);background:var(--s3);color:var(--text2);font-size:11px;font-weight:700;cursor:pointer;transition:.15s;white-space:nowrap}
+.fmt-opt.active{border-color:var(--bcm);background:var(--bcm-dim);color:var(--bcm-xl)}
+.fmt-sub{display:none;border-top:1px solid var(--border);padding-top:10px;margin-top:4px}
+.fmt-sub.show{display:block}
+
+/* ══ TIMER ══ */
+.timer-display{font-family:'Cormorant Garamond',serif;font-size:56px;font-weight:700;color:var(--gold-l);text-align:center;letter-spacing:4px;line-height:1;margin:8px 0}
+.timer-display.running{color:var(--green)}
+.timer-display.urgent{color:var(--red);animation:blink .8s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.5}}
+.timer-controls{display:flex;gap:8px;justify-content:center;margin-bottom:12px}
+
+/* ══ HERO ══ */
+.hero{background:linear-gradient(160deg,rgba(92,46,107,0.45) 0%,rgba(20,12,28,0.7) 50%,transparent 100%);padding:28px 18px 24px;margin:-20px -16px 20px;border-bottom:1px solid var(--border);position:relative;overflow:hidden}
+.hero::after{content:'';position:absolute;top:-80px;right:-60px;width:220px;height:220px;border-radius:50%;background:radial-gradient(circle,rgba(123,63,140,0.12) 0%,transparent 70%);pointer-events:none}
+.hero-eyebrow{font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--bcm-l);margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.hero-eyebrow::before{content:'';width:20px;height:1px;background:var(--bcm)}
+.hero h2{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:700;letter-spacing:1px;color:#fff;margin-bottom:6px;line-height:1.1}
+.hero-meta{font-size:12px;color:rgba(255,255,255,0.35);letter-spacing:.5px}
+.stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:18px}
+.stat-card{background:rgba(12,8,15,0.7);border:1px solid var(--border);border-radius:var(--rs);padding:14px 10px;text-align:center}
+.stat-val{font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:700;color:var(--bcm-l);line-height:1}
+.stat-lbl{font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--text3);margin-top:5px}
+
+/* ══ PHASE BANNER ══ */
+.phase-banner{background:linear-gradient(135deg,var(--bcm-dim),rgba(123,63,140,0.04));border:1px solid var(--border2);border-radius:var(--rs);padding:14px 16px;margin-bottom:14px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
+.phase-label{font-size:14px;font-weight:700;color:var(--text)}
+.phase-sub{font-size:11px;color:var(--text2);margin-top:3px}
+.progress-track{background:var(--s4);border-radius:99px;height:3px;margin-top:8px;overflow:hidden}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--bcm-d),var(--bcm-l));border-radius:99px;transition:.4s}
+
+/* ══ TEAM TAG ══ */
+.team-tag{display:inline-flex;align-items:center;gap:7px;background:var(--s2);border:1px solid var(--border);border-radius:var(--rxl);padding:5px 12px;font-size:12px;margin:3px;font-weight:500}
+.team-tag .del{background:none;border:none;color:var(--text3);cursor:pointer;font-size:14px;line-height:1;padding:0;transition:.15s}
+.team-tag .del:hover{color:var(--red)}
+
+/* ══ TERRAIN BADGE ══ */
+.terrain-badge{display:inline-flex;align-items:center;gap:4px;background:rgba(46,204,138,0.08);border:1px solid rgba(46,204,138,0.2);border-radius:20px;padding:2px 8px;font-size:10px;font-weight:700;color:var(--green);letter-spacing:.5px}
+.terrain-dot{width:6px;height:6px;border-radius:50%;background:var(--green)}
+
+/* ══ POOL TABLE ══ */
+.pool-block{border:1px solid var(--border);border-radius:var(--r);margin-bottom:16px;overflow:hidden}
+.pool-hdr{background:linear-gradient(135deg,var(--bcm-d),rgba(123,63,140,0.6));padding:11px 16px;display:flex;align-items:center;justify-content:space-between}
+.pool-hdr-name{font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:700;letter-spacing:2px;color:#fff;text-transform:uppercase}
+.ptbl{width:100%;border-collapse:collapse;font-size:12px}
+.ptbl th{background:var(--s2);padding:8px 10px;text-align:center;font-size:9px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.8px}
+.ptbl td{padding:9px 10px;text-align:center;border-top:1px solid var(--border)}
+.ptbl .tn{text-align:left;font-weight:600;font-size:13px;padding-left:14px}
+.ptbl tr.q td{background:rgba(123,63,140,0.06)}
+.ptbl tr.q .tn::after{content:'Q';margin-left:7px;font-size:9px;font-weight:700;color:var(--bcm-l);background:rgba(123,63,140,0.18);padding:1px 5px;border-radius:3px}
+
+/* ══ MATCH CARD ══ */
+.mc{background:var(--s2);border:1px solid var(--border);border-radius:var(--rs);padding:13px 14px;margin-bottom:8px;transition:.15s}
+.mc.ok{border-color:rgba(46,204,138,0.3);background:rgba(46,204,138,0.03)}
+.mc.bye{border-color:rgba(123,63,140,0.25);background:var(--bcm-dim);opacity:.7}
+.mc-top{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:6px}
+.mc-terrain{flex-shrink:0}
+.mc-teams{font-weight:600;font-size:14px;color:var(--text);line-height:1.4}
+.mc-vs{color:var(--text3);font-size:11px;font-weight:400}
+.mc-score{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--gold-l);letter-spacing:2px}
+.mc-score-detail{font-size:11px;color:var(--text3);margin-top:2px;letter-spacing:.3px}
+.mc-bottom{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:8px}
+.mc-badge{display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--green);background:var(--green-dim);padding:3px 9px;border-radius:20px;border:1px solid rgba(46,204,138,0.25)}
+.mc-bye-badge{font-size:10px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--bcm-l);background:var(--bcm-dim);padding:3px 9px;border-radius:20px;border:1px solid var(--border2)}
+.mc-fmt{font-size:10px;color:var(--text3);margin-top:3px}
+
+/* ══ BRACKET ══ */
+.bracket-wrap{overflow-x:auto;padding:8px 0 16px;-webkit-overflow-scrolling:touch}
+.bracket-tree{display:flex;min-width:max-content}
+.bround{display:flex;flex-direction:column;justify-content:space-around;min-width:160px}
+.bround-title{text-align:center;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--bcm-l);padding:8px 6px 12px}
+.bm{background:var(--s2);border:1px solid var(--border);border-radius:8px;margin:5px 7px;overflow:hidden;transition:.15s}
+.bm.active{border-color:var(--bcm);box-shadow:0 0 12px rgba(123,63,140,0.2)}
+.bm.ok{border-color:rgba(46,204,138,0.35)}
+.bm.bye{opacity:.65;border-style:dashed}
+.bm-row{padding:7px 10px;display:flex;justify-content:space-between;align-items:center;font-size:12px;font-weight:500;border-bottom:1px solid var(--border)}
+.bm-row:last-child{border-bottom:none}
+.bm-row.win{font-weight:700;color:var(--gold-l)}
+.bm-row.lose{color:var(--text3)}
+.bm-row.pending{color:var(--text2)}
+.bm-row.bye-row{color:var(--text3);font-style:italic}
+.bsc{font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:700;color:var(--gold)}
+
+/* ══ RANKING ══ */
+.rank-item{display:flex;align-items:center;gap:12px;padding:14px;background:var(--s2);border-radius:var(--rs);margin-bottom:8px;border:1px solid var(--border)}
+.rank-num{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:700;width:36px;text-align:center;line-height:1}
+.r1 .rank-num{color:var(--gold)}.r2 .rank-num{color:var(--silver)}.r3 .rank-num{color:var(--bronze)}
+.rank-name{flex:1;font-weight:600;font-size:13px}
+.rank-meta{font-size:11px;color:var(--text2);margin-top:2px}
+
+/* ══ WINNER ══ */
+.winner-card{text-align:center;padding:32px 16px;background:linear-gradient(135deg,rgba(201,168,76,0.08),rgba(123,63,140,0.06));border:1px solid rgba(201,168,76,0.2);border-radius:var(--r);margin-bottom:14px;position:relative;overflow:hidden}
+.winner-card::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(201,168,76,0.08) 0%,transparent 70%);pointer-events:none}
+.winner-trophy{font-size:2.8rem;margin-bottom:10px;filter:drop-shadow(0 0 12px rgba(201,168,76,0.5))}
+.winner-label{font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--text2);margin-bottom:6px}
+.winner-name{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:700;color:var(--gold-l);letter-spacing:1px}
+
+/* ══ TOURNAMENT LIST ══ */
+.t-item{display:flex;align-items:center;justify-content:space-between;background:var(--s2);border:1px solid var(--border);border-radius:var(--rs);padding:14px;margin-bottom:8px;cursor:pointer;transition:.2s}
+.t-item:hover{border-color:var(--bcm-l);background:var(--s3)}
+.t-name{font-weight:700;font-size:14px}
+.t-meta{font-size:11px;color:var(--text2);margin-top:3px}
+.t-badge{font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;letter-spacing:.5px;text-transform:uppercase}
+.t-badge.live{background:var(--bcm-dim);color:var(--bcm-l)}
+.t-badge.done{background:var(--gold-dim);color:var(--gold)}
+
+/* ══ MODAL ══ */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.88);z-index:200;align-items:flex-end;justify-content:center;backdrop-filter:blur(6px)}
+.modal-overlay.open{display:flex}
+.modal{background:var(--s1);border:1px solid var(--border2);border-top:1px solid var(--border3);border-radius:18px 18px 0 0;padding:24px 18px 40px;width:100%;max-width:520px;max-height:92vh;overflow-y:auto;box-shadow:0 -10px 50px rgba(123,63,140,0.25);animation:su .22s ease;position:relative}
+.modal-full{max-height:96vh}
+@keyframes su{from{transform:translateY(40px);opacity:0}to{transform:translateY(0);opacity:1}}
+.modal-title{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;letter-spacing:.8px;color:var(--bcm-xl);margin-bottom:18px;padding-right:28px}
+.modal-close{position:absolute;top:22px;right:18px;background:var(--s3);border:1px solid var(--border);color:var(--text2);font-size:16px;cursor:pointer;width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;transition:.15s}
+.modal-close:hover{background:var(--s4);color:var(--text)}
+
+/* ══ TOAST ══ */
+.toast{position:fixed;bottom:82px;left:50%;transform:translateX(-50%);background:var(--s4);border:1px solid var(--border2);border-radius:var(--rs);padding:11px 22px;font-size:13px;font-weight:600;z-index:300;pointer-events:none;opacity:0;transition:.25s;white-space:nowrap;backdrop-filter:blur(12px)}
+.toast.show{opacity:1}
+.toast.success{border-color:rgba(46,204,138,0.4);color:var(--green)}
+.toast.error{border-color:rgba(224,85,85,0.4);color:var(--red)}
+
+/* ══ SPECTATEUR VIEW ══ */
+.spectateur-wrap{position:fixed;inset:0;background:var(--bg);z-index:500;overflow-y:auto;padding:20px 16px 40px}
+.spectateur-wrap.hidden{display:none}
+.spec-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;padding-bottom:16px;border-bottom:1px solid var(--border)}
+.spec-title{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:700;color:var(--bcm-xl)}
+.spec-close{background:var(--s3);border:1px solid var(--border);color:var(--text2);padding:8px 14px;border-radius:var(--rs);font-size:12px;font-weight:700;cursor:pointer;transition:.2s}
+.spec-close:hover{border-color:var(--bcm-l);color:var(--bcm-l)}
+.spec-section{margin-bottom:24px}
+.spec-section-title{font-size:9px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--text3);margin-bottom:12px;display:flex;align-items:center;gap:12px}
+.spec-section-title::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,var(--border),transparent)}
+.spec-match{background:var(--s2);border:1px solid var(--border);border-radius:var(--r);padding:16px;margin-bottom:8px}
+.spec-match.live{border-color:var(--green);background:rgba(46,204,138,0.04)}
+.spec-match.next{border-color:var(--bcm)}
+.spec-live-dot{width:8px;height:8px;border-radius:50%;background:var(--green);animation:pulse 1.2s infinite;flex-shrink:0}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.8)}}
+.spec-match-teams{font-size:16px;font-weight:700;color:var(--text);margin:6px 0}
+.spec-match-meta{font-size:12px;color:var(--text2)}
+.spec-match-score{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:700;color:var(--gold-l);letter-spacing:3px;margin-top:4px}
+.qr-wrap{background:white;border-radius:12px;padding:16px;display:inline-flex;flex-direction:column;align-items:center;gap:8px;margin:0 auto;display:flex}
+.qr-wrap canvas{border-radius:4px}
+.qr-label{font-size:11px;font-weight:700;color:#333;letter-spacing:.5px;text-transform:uppercase}
+.share-link-box{background:var(--s2);border:1px solid var(--border2);border-radius:var(--rs);padding:12px 14px;display:flex;align-items:center;gap:10px;margin-top:8px}
+.share-link-url{flex:1;font-size:11px;color:var(--text2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-family:monospace}
+
+/* ══ TERRAIN MANAGER ══ */
+.terrain-list{display:flex;flex-direction:column;gap:8px;margin-bottom:12px}
+.terrain-item{display:flex;align-items:center;gap:10px;background:var(--s2);border:1px solid var(--border);border-radius:var(--rs);padding:10px 14px}
+.terrain-num{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--bcm-l);width:28px}
+.terrain-name-inp{flex:1;background:transparent;border:none;padding:0;font-size:14px;color:var(--text);outline:none}
+.terrain-del{background:none;border:none;color:var(--text3);cursor:pointer;font-size:16px;padding:0;transition:.15s}
+.terrain-del:hover{color:var(--red)}
+
+/* ══ MISC ══ */
+.pill{display:inline-block;font-size:10px;font-weight:700;padding:3px 9px;border-radius:20px;letter-spacing:.5px;text-transform:uppercase}
+.pill-p{background:var(--bcm-dim);color:var(--bcm-l)}
+.pill-g{background:var(--green-dim);color:var(--green)}
+.pill-gold{background:var(--gold-dim);color:var(--gold)}
+.divider{height:1px;background:var(--border);margin:16px 0}
+.empty{text-align:center;padding:52px 20px;color:var(--text2)}
+.empty .ico{font-size:2.5rem;margin-bottom:14px;opacity:.6}
+.empty p{font-size:13px;line-height:1.8}
+.info-box{background:var(--s3);border:1px solid var(--border);border-radius:var(--rs);padding:13px 15px;font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:12px}
+.warn-box{background:rgba(224,140,42,0.08);border:1px solid rgba(224,140,42,0.25);border-radius:var(--rs);padding:13px 15px;font-size:13px;color:var(--orange);line-height:1.6;margin-bottom:12px}
+.sep-label{font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text3);margin-bottom:12px;margin-top:4px}
+
+@media(min-width:600px){.tab-content{max-width:640px;margin:0 auto}body{padding-bottom:0}.nav-bar{display:none}.tabs{justify-content:center}}
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <div class="logo-wrap">
+    <div class="logo-badge">BCM</div>
+    <div class="logo-text-wrap">
+      <div class="logo-main">BCM <em>Sports</em></div>
+      <div class="logo-tagline">Padel · Compétitions</div>
+    </div>
+  </div>
+  <div style="display:flex;align-items:center;gap:8px">
+    <button class="btn btn-ghost btn-xs" onclick="openSpectateur()" id="specBtn" style="display:none">👁 Live</button>
+    <button class="org-pill" id="orgBtn" onclick="toggleOrg()">
+      <div class="org-led" id="orgLed"></div>
+      <span id="orgLabel">Organisateur</span>
+    </button>
+  </div>
+</div>
+
+<!-- TABS -->
+<div class="tabs">
+  <div class="tab active" onclick="switchTab('accueil')">Accueil</div>
+  <div class="tab" onclick="switchTab('poules')">Poules</div>
+  <div class="tab" onclick="switchTab('finale')">Phase Finale</div>
+  <div class="tab" onclick="switchTab('classement')">Classement</div>
+  <div class="tab" onclick="switchTab('historique')">Historique</div>
+</div>
+
+<div id="tab-accueil" class="tab-content active"></div>
+<div id="tab-poules" class="tab-content"></div>
+<div id="tab-finale" class="tab-content"></div>
+<div id="tab-classement" class="tab-content"></div>
+<div id="tab-historique" class="tab-content"></div>
+
+<!-- NAV BAR -->
+<nav class="nav-bar">
+  <button class="nav-btn active" onclick="switchTab('accueil')">
+    <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Accueil
+  </button>
+  <button class="nav-btn" onclick="switchTab('poules')">
+    <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>Poules
+  </button>
+  <button class="nav-btn" onclick="switchTab('finale')">
+    <svg viewBox="0 0 24 24"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 014-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 01-4 4H3"/></svg>Finale
+  </button>
+  <button class="nav-btn" onclick="switchTab('classement')">
+    <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg>Top
+  </button>
+  <button class="nav-btn" onclick="switchTab('historique')">
+    <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>Archives
+  </button>
+</nav>
+
+<!-- ══ VUE SPECTATEUR / JOUEUR ══ -->
+<div class="spectateur-wrap hidden" id="specView">
+  <div class="spec-header">
+    <div>
+      <div class="spec-title" id="specTitle">—</div>
+      <div style="font-size:11px;color:var(--text2);margin-top:3px" id="specMeta">—</div>
+    </div>
+    <button class="spec-close" onclick="closeSpectateur()">✕ Fermer</button>
+  </div>
+  <div id="specContent"></div>
+</div>
+
+<!-- MODAL: CODE ORG -->
+<div class="modal-overlay" id="orgModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeM('orgModal')">✕</button>
+    <div class="modal-title">Mode Organisateur</div>
+    <p style="font-size:13px;color:var(--text2);line-height:1.7;margin-bottom:16px">Entrez votre code secret pour gérer le tournoi, saisir les scores et modifier les formats.</p>
+    <div class="form-group"><label>Code secret</label><input type="password" id="orgCode" placeholder="•••••••" onkeydown="if(event.key==='Enter')checkCode()"></div>
+    <button class="btn btn-primary btn-block" onclick="checkCode()">Activer le mode organisateur</button>
+  </div>
+</div>
+
+<!-- MODAL: CRÉER TOURNOI -->
+<div class="modal-overlay" id="createModal">
+  <div class="modal modal-full">
+    <button class="modal-close" onclick="closeM('createModal')">✕</button>
+    <div class="modal-title">Nouveau Tournoi</div>
+    <div class="form-group"><label>Nom du tournoi *</label><input id="cName" placeholder="BCM Open Printemps 2025"></div>
+    <div class="form-row">
+      <div class="form-group"><label>Date</label><input type="date" id="cDate"></div>
+      <div class="form-group"><label>Lieu</label><input id="cLieu" placeholder="Club BCM Paris"></div>
+    </div>
+    <div class="divider"></div>
+    <div class="sep-label">Format de compétition</div>
+    <div class="form-group"><label>Structure de la phase finale</label>
+      <select id="cBracketStart">
+        <option value="auto" selected>Automatique</option>
+        <option value="16">Toujours en 1/8 de finale (16 équipes)</option>
+        <option value="8">Toujours en Quarts de finale (8 équipes)</option>
+        <option value="4">Demi-finales directes (4 équipes)</option>
+      </select>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label>Max équipes</label><input type="number" id="cMaxTeams" value="32" min="4"></div>
+      <div class="form-group"><label>Équipes / poule</label>
+        <select id="cPoolSize"><option value="3">3</option><option value="4" selected>4</option><option value="5">5</option><option value="6">6</option></select>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label>Qualifiés / poule</label>
+        <select id="cQual"><option value="1">1</option><option value="2" selected>2</option><option value="3">3</option></select>
+      </div>
+      <div class="form-group"><label>Code organisateur *</label><input type="password" id="cCode" placeholder="Code secret"></div>
+    </div>
+    <div class="divider"></div>
+    <div class="sep-label">Formats de score par phase</div>
+    <div class="info-box" style="margin-bottom:14px">Vous pourrez modifier ces formats à tout moment pendant le tournoi, même en cours de phase.</div>
+    <div id="cFmtPoules"></div>
+    <div id="cFmtFinale"></div>
+    <div id="cFmtConsolante"></div>
+    <div class="divider"></div>
+    <div class="sep-label">Terrains</div>
+    <div id="cTerrains"></div>
+    <button class="btn btn-ghost btn-sm" onclick="addTerrain('cTerrains')" style="margin-bottom:14px">+ Ajouter un terrain</button>
+    <button class="btn btn-primary btn-block" style="margin-top:8px" onclick="createTournament()">Créer le tournoi</button>
+  </div>
+</div>
+
+<!-- MODAL: FORMAT DE SCORE (modifier en cours de tournoi) -->
+<div class="modal-overlay" id="fmtModal">
+  <div class="modal modal-full">
+    <button class="modal-close" onclick="closeM('fmtModal')">✕</button>
+    <div class="modal-title">Modifier les formats</div>
+    <div class="info-box">Modifications appliquées immédiatement. Les matchs déjà validés ne sont pas affectés.</div>
+    <div id="fmtModalContent"></div>
+    <button class="btn btn-primary btn-block" style="margin-top:12px" onclick="saveFmtModal()">Enregistrer</button>
+  </div>
+</div>
+
+<!-- MODAL: REPÊCHAGE -->
+<div class="modal-overlay" id="repModal">
+  <div class="modal">
+    <div class="modal-title">Compléter le Tableau</div>
+    <p id="repText" style="font-size:13px;color:var(--text2);line-height:1.7;margin-bottom:16px"></p>
+    <div class="form-group"><label>Choisir l'équipe repêchée</label><select id="repSelect"></select></div>
+    <button class="btn btn-gold btn-block" onclick="submitRep()">Valider et générer le tableau</button>
+    <button class="btn btn-outline btn-block" onclick="submitRepAuto()">Auto (meilleur goal-average)</button>
+  </div>
+</div>
+
+<!-- MODAL: SCORE UNIVERSEL -->
+<div class="modal-overlay" id="scoreModal">
+  <div class="modal modal-full">
+    <button class="modal-close" onclick="closeM('scoreModal')">✕</button>
+    <div class="modal-title" id="scoreMTitle">Score du match</div>
+    <div id="scoreMBody"></div>
+  </div>
+</div>
+
+<!-- MODAL: INSCRIPTION -->
+<div class="modal-overlay" id="joinModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeM('joinModal')">✕</button>
+    <div class="modal-title">Inscrire une équipe</div>
+    <div class="form-group"><label>Joueur 1</label><input id="jP1" placeholder="Prénom Nom"></div>
+    <div class="form-group"><label>Joueur 2</label><input id="jP2" placeholder="Prénom Nom"></div>
+    <button class="btn btn-primary btn-block" onclick="registerTeam()">Inscrire l'équipe</button>
+  </div>
+</div>
+
+<!-- MODAL: ASSIGNER TERRAIN -->
+<div class="modal-overlay" id="terrainModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeM('terrainModal')">✕</button>
+    <div class="modal-title">Assigner terrain & heure</div>
+    <div id="terrainMBody"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+'use strict';
+
+// ══════════════════════════════════════════
+// CONSTANTES FORMATS
+// ══════════════════════════════════════════
+const FORMATS = {
+  sets:     { label:'Sets classiques', short:'Sets', cls:'fmt-sets',    desc:'6/4, 7/5, 7/6 + super TB décisif' },
+  games:    { label:'Jeux limités',    short:'Jeux', cls:'fmt-games',   desc:'4 ou 6 jeux max, pas de déuce' },
+  supertb:  { label:'Super tie-break', short:'STB',  cls:'fmt-supertb', desc:'1 set à 10 pts (ou plus)' },
+  tb:       { label:'Tie-break 7 pts', short:'TB7',  cls:'fmt-tb',      desc:'1 set à 7 pts, format urgence' },
+  time:     { label:'Au temps (libre)', short:'Temps',cls:'fmt-time',   desc:'Chrono + points libres, plus haut total gagne' },
+  timecap:  { label:'Au temps (plafonné)', short:'T-Cap', cls:'fmt-timecap', desc:'Chrono + premier à X pts ou fin du temps' },
+  custom:   { label:'Full custom',     short:'Custom',cls:'fmt-custom', desc:'Saisie libre, le système demande le gagnant' }
+};
+
+const DEFAULT_FMT = () => ({
+  type: 'sets',
+  sets_bo: 3,           // best of (1,3,5)
+  sets_super_tb: true,  // super tb en décisif
+  games_max: 6,         // jeux max par set en format jeux
+  games_bo: 3,
+  supertb_pts: 10,      // points pour gagner le super tb
+  tb_pts: 7,
+  time_duration: 15,    // minutes
+  timecap_duration: 15,
+  timecap_pts: 21,      // plafond de points
+});
+
+// ══════════════════════════════════════════
+// ÉTAT & PERSISTANCE
+// ══════════════════════════════════════════
+let S = { tournaments:[], currentId:null, orgMode:false, orgKey:null };
+let pendingRep = null;
+let scoreTimerInterval = null;
+let scoreTimerStart = null;
+let scoreTimerEl = null;
+let tmpTerrains = [];
+
+const save = () => localStorage.setItem('bcm_v4', JSON.stringify(S));
+function load(){
+  try{
+    const r = JSON.parse(localStorage.getItem('bcm_v4') || localStorage.getItem('bcm_v3') || '{}');
+    S.tournaments = r.tournaments || [];
+    S.currentId = r.currentId || null;
+    const sk = sessionStorage.getItem('bcm_sk');
+    if(sk){ const t=cur(); if(t&&sk===t.orgCode){S.orgMode=true;S.orgKey=sk} }
+  }catch(e){}
+}
+const cur = () => S.tournaments.find(t => t.id === S.currentId) || null;
+const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2,6);
+
+// ══════════════════════════════════════════
+// FORMAT HELPERS
+// ══════════════════════════════════════════
+function getFmt(t, phase){
+  // phase: 'pool' | 'bracket' | 'consolante'
+  if(!t) return DEFAULT_FMT();
+  const key = phase === 'pool' ? 'fmtPool' : phase === 'bracket' ? 'fmtBracket' : 'fmtConsolante';
+  return t[key] || DEFAULT_FMT();
+}
+
+function fmtLabel(fmt){
+  if(!fmt) return 'Sets';
+  return FORMATS[fmt.type]?.short || 'Sets';
+}
+
+function fmtBadge(fmt){
+  const f = FORMATS[fmt?.type] || FORMATS.sets;
+  return `<span class="fmt-badge ${f.cls}">${f.short}</span>`;
+}
+
+// Construit le panneau de configuration d'un format
+function buildFmtPanel(containerId, fmtObj, phaseLabel, prefix){
+  const c = document.getElementById(containerId);
+  if(!c) return;
+  const fmt = fmtObj || DEFAULT_FMT();
+  c.innerHTML = renderFmtPanel(fmt, phaseLabel, prefix);
+  // attacher les events
+  attachFmtEvents(prefix, fmt);
+}
+
+function renderFmtPanel(fmt, phaseLabel, prefix){
+  const fmtOpts = Object.entries(FORMATS).map(([k,v]) =>
+    `<div class="fmt-opt${fmt.type===k?' active':''}" onclick="selectFmt('${prefix}','${k}')" data-fmt="${k}">${v.label}</div>`
+  ).join('');
+
+  return `<div class="fmt-panel" id="${prefix}_panel">
+    <div class="fmt-panel-title">
+      <span>${phaseLabel}</span>
+      ${fmtBadge(fmt)}
+    </div>
+    <div class="fmt-selector" id="${prefix}_opts">${fmtOpts}</div>
+    <div class="fmt-sub${fmt.type==='sets'?' show':''}" id="${prefix}_sub_sets">
+      <div class="form-row">
+        <div class="form-group"><label>Best of (sets)</label>
+          <select id="${prefix}_sets_bo">
+            <option value="1"${fmt.sets_bo===1?' selected':''}>Best of 1</option>
+            <option value="3"${fmt.sets_bo!==1&&fmt.sets_bo!==5?' selected':''}>Best of 3</option>
+            <option value="5"${fmt.sets_bo===5?' selected':''}>Best of 5</option>
+          </select>
+        </div>
+        <div class="form-group"><label>Super TB décisif</label>
+          <select id="${prefix}_sets_super">
+            <option value="1"${fmt.sets_super_tb?' selected':''}>Oui</option>
+            <option value="0"${!fmt.sets_super_tb?' selected':''}>Non</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="fmt-sub${fmt.type==='games'?' show':''}" id="${prefix}_sub_games">
+      <div class="form-row">
+        <div class="form-group"><label>Jeux max / set</label>
+          <select id="${prefix}_games_max">
+            <option value="4"${fmt.games_max===4?' selected':''}>4 jeux</option>
+            <option value="6"${fmt.games_max!==4?' selected':''}>6 jeux</option>
+          </select>
+        </div>
+        <div class="form-group"><label>Best of (sets)</label>
+          <select id="${prefix}_games_bo">
+            <option value="1"${fmt.games_bo===1?' selected':''}>Best of 1</option>
+            <option value="3"${fmt.games_bo!==1?' selected':''}>Best of 3</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="fmt-sub${fmt.type==='supertb'?' show':''}" id="${prefix}_sub_supertb">
+      <div class="form-group"><label>Points pour gagner</label>
+        <select id="${prefix}_supertb_pts">
+          <option value="10"${fmt.supertb_pts===10?' selected':''}>10 pts</option>
+          <option value="15"${fmt.supertb_pts===15?' selected':''}>15 pts</option>
+          <option value="20"${fmt.supertb_pts===20?' selected':''}>20 pts</option>
+        </select>
+      </div>
+    </div>
+    <div class="fmt-sub${fmt.type==='tb'?' show':''}" id="${prefix}_sub_tb">
+      <div class="form-group"><label>Points pour gagner</label>
+        <select id="${prefix}_tb_pts">
+          <option value="7"${fmt.tb_pts===7?' selected':''}>7 pts</option>
+          <option value="10"${fmt.tb_pts===10?' selected':''}>10 pts</option>
+        </select>
+      </div>
+    </div>
+    <div class="fmt-sub${fmt.type==='time'?' show':''}" id="${prefix}_sub_time">
+      <div class="form-group"><label>Durée du match (minutes)</label>
+        <select id="${prefix}_time_dur">
+          <option value="10"${fmt.time_duration===10?' selected':''}>10 min</option>
+          <option value="12"${fmt.time_duration===12?' selected':''}>12 min</option>
+          <option value="15"${!fmt.time_duration||fmt.time_duration===15?' selected':''}>15 min</option>
+          <option value="20"${fmt.time_duration===20?' selected':''}>20 min</option>
+          <option value="25"${fmt.time_duration===25?' selected':''}>25 min</option>
+          <option value="30"${fmt.time_duration===30?' selected':''}>30 min</option>
+        </select>
+      </div>
+    </div>
+    <div class="fmt-sub${fmt.type==='timecap'?' show':''}" id="${prefix}_sub_timecap">
+      <div class="form-row">
+        <div class="form-group"><label>Durée max (min)</label>
+          <select id="${prefix}_timecap_dur">
+            <option value="10"${fmt.timecap_duration===10?' selected':''}>10 min</option>
+            <option value="12"${fmt.timecap_duration===12?' selected':''}>12 min</option>
+            <option value="15"${!fmt.timecap_duration||fmt.timecap_duration===15?' selected':''}>15 min</option>
+            <option value="20"${fmt.timecap_duration===20?' selected':''}>20 min</option>
+            <option value="25"${fmt.timecap_duration===25?' selected':''}>25 min</option>
+            <option value="30"${fmt.timecap_duration===30?' selected':''}>30 min</option>
+          </select>
+        </div>
+        <div class="form-group"><label>Points plafond</label>
+          <select id="${prefix}_timecap_pts">
+            <option value="15"${fmt.timecap_pts===15?' selected':''}>15 pts</option>
+            <option value="21"${!fmt.timecap_pts||fmt.timecap_pts===21?' selected':''}>21 pts</option>
+            <option value="25"${fmt.timecap_pts===25?' selected':''}>25 pts</option>
+            <option value="30"${fmt.timecap_pts===30?' selected':''}>30 pts</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="fmt-sub${fmt.type==='custom'?' show':''}" id="${prefix}_sub_custom">
+      <div class="info-box" style="margin-bottom:0">En mode custom, vous saisissez le score librement et sélectionnez manuellement l'équipe gagnante.</div>
+    </div>
+  </div>`;
+}
+
+function attachFmtEvents(prefix, fmt){ /* events via onclick inline */ }
+
+function selectFmt(prefix, fmtType){
+  // update active button
+  const panel = document.getElementById(prefix+'_panel');
+  if(!panel) return;
+  panel.querySelectorAll('.fmt-opt').forEach(el => {
+    el.classList.toggle('active', el.dataset.fmt === fmtType);
+  });
+  // update badge
+  const badge = panel.querySelector('.fmt-panel-title span:last-child');
+  if(badge) badge.outerHTML = fmtBadge({type:fmtType});
+  // show/hide sub
+  ['sets','games','supertb','tb','time','timecap','custom'].forEach(k => {
+    const sub = document.getElementById(prefix+'_sub_'+k);
+    if(sub) sub.classList.toggle('show', k===fmtType);
+  });
+}
+
+function readFmt(prefix){
+  const activeOpt = document.querySelector(`#${prefix}_panel .fmt-opt.active`);
+  const type = activeOpt ? activeOpt.dataset.fmt : 'sets';
+  const g = id => { const el=document.getElementById(prefix+'_'+id); return el?el.value:null; };
+  return {
+    type,
+    sets_bo: parseInt(g('sets_bo'))||3,
+    sets_super_tb: g('sets_super')==='1',
+    games_max: parseInt(g('games_max'))||6,
+    games_bo: parseInt(g('games_bo'))||3,
+    supertb_pts: parseInt(g('supertb_pts'))||10,
+    tb_pts: parseInt(g('tb_pts'))||7,
+    time_duration: parseInt(g('time_dur'))||15,
+    timecap_duration: parseInt(g('timecap_dur'))||15,
+    timecap_pts: parseInt(g('timecap_pts'))||21,
+  };
+}
+
+// ══════════════════════════════════════════
+// TERRAINS
+// ══════════════════════════════════════════
+function addTerrain(containerId){
+  tmpTerrains.push({ id: uid(), name: 'Terrain '+(tmpTerrains.length+1) });
+  renderTerrainList(containerId);
+}
+
+function removeTerrain(containerId, id){
+  tmpTerrains = tmpTerrains.filter(t => t.id !== id);
+  renderTerrainList(containerId);
+}
+
+function renderTerrainList(containerId){
+  const c = document.getElementById(containerId);
+  if(!c) return;
+  if(!tmpTerrains.length){
+    c.innerHTML = `<div class="info-box" style="margin-bottom:8px">Aucun terrain configuré. Les matchs n'auront pas de terrain assigné.</div>`;
+    return;
+  }
+  c.innerHTML = `<div class="terrain-list">${tmpTerrains.map((t,i) => `
+    <div class="terrain-item">
+      <div class="terrain-num">P${i+1}</div>
+      <input class="terrain-name-inp" value="${t.name}" onchange="tmpTerrains[${i}].name=this.value" placeholder="Nom du terrain">
+      <button class="terrain-del" onclick="removeTerrain('${containerId}','${t.id}')">✕</button>
+    </div>`).join('')}</div>`;
+}
+
+// Ouvrir modal assignation terrain
+function openTerrainModal(matchId, source){
+  const t = cur(); if(!t) return;
+  const terrains = t.terrains || [];
+  if(!terrains.length){ toast('Aucun terrain configuré pour ce tournoi','error'); return; }
+  let match = findMatch(t, matchId, source);
+  if(!match) return;
+  const tm1 = t.teams.find(x=>x.id===match.t1), tm2 = t.teams.find(x=>x.id===match.t2);
+  const n1 = tm1?tm1.name:'Eq. 1', n2 = tm2?tm2.name:'Eq. 2';
+
+  document.getElementById('terrainMBody').innerHTML = `
+    <div style="font-size:14px;font-weight:600;color:var(--text);margin-bottom:16px">${n1} <span style="color:var(--text3)">vs</span> ${n2}</div>
+    <div class="form-group"><label>Terrain</label>
+      <select id="terrainSel">
+        <option value="">— Aucun terrain —</option>
+        ${terrains.map(tr => `<option value="${tr.id}"${match.terrain===tr.id?' selected':''}>${tr.name}</option>`).join('')}
+      </select>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label>Heure de début</label><input type="time" id="terrainTime" value="${match.time||''}"></div>
+      <div class="form-group"><label>Heure de fin</label><input type="time" id="terrainTimeEnd" value="${match.timeEnd||''}"></div>
+    </div>
+    <button class="btn btn-primary btn-block" onclick="saveTerrainModal('${matchId}','${source}')">Enregistrer</button>
+  `;
+  openM('terrainModal');
+}
+
+function saveTerrainModal(matchId, source){
+  const t = cur(); if(!t) return;
+  let match = findMatch(t, matchId, source);
+  if(!match) return;
+  const sel = document.getElementById('terrainSel').value;
+  match.terrain = sel || null;
+  match.time = document.getElementById('terrainTime').value || null;
+  match.timeEnd = document.getElementById('terrainTimeEnd').value || null;
+  save(); closeM('terrainModal'); toast('Terrain assigné ✓');
+  render(source==='pool'?'poules':'finale');
+}
+
+function getTerrainLabel(t, terrainId){
+  if(!terrainId || !t.terrains) return null;
+  const tr = t.terrains.find(x=>x.id===terrainId);
+  return tr ? tr.name : null;
+}
+
+// ══════════════════════════════════════════
+// MODAL MODIFIER FORMATS EN COURS
+// ══════════════════════════════════════════
+function openFmtModal(){
+  const t = cur(); if(!t) return;
+  const c = document.getElementById('fmtModalContent');
+  c.innerHTML = '';
+  // render 3 panels
+  c.innerHTML = `
+    <div id="fmEdit_poules_wrap"></div>
+    <div id="fmEdit_bracket_wrap"></div>
+    <div id="fmEdit_consolante_wrap"></div>
+  `;
+  buildFmtPanel('fmEdit_poules_wrap', t.fmtPool, 'Format Poules', 'fmEdit_poules');
+  buildFmtPanel('fmEdit_bracket_wrap', t.fmtBracket, 'Format Phase Finale', 'fmEdit_bracket');
+  buildFmtPanel('fmEdit_consolante_wrap', t.fmtConsolante, 'Format Consolante', 'fmEdit_consolante');
+  openM('fmtModal');
+}
+
+function saveFmtModal(){
+  const t = cur(); if(!t) return;
+  t.fmtPool = readFmt('fmEdit_poules');
+  t.fmtBracket = readFmt('fmEdit_bracket');
+  t.fmtConsolante = readFmt('fmEdit_consolante');
+  save(); closeM('fmtModal'); toast('Formats mis à jour ✓');
+  render('accueil');
+}
+
+// ══════════════════════════════════════════
+// NAV
+// ══════════════════════════════════════════
+function switchTab(name){
+  document.querySelectorAll('.tab-content,.tab,.nav-btn').forEach(el => el.classList.remove('active'));
+  document.getElementById('tab-'+name).classList.add('active');
+  const tabs=['accueil','poules','finale','classement','historique'];
+  const i=tabs.indexOf(name);
+  if(i>=0){ document.querySelectorAll('.tab')[i].classList.add('active'); document.querySelectorAll('.nav-btn')[i].classList.add('active'); }
+  ({accueil:rAccueil,poules:rPoules,finale:rFinale,classement:rClassement,historique:rHistorique})[name]?.();
+}
+const render = tab => ({accueil:rAccueil,poules:rPoules,finale:rFinale,classement:rClassement,historique:rHistorique})[tab]?.();
+
+// ══════════════════════════════════════════
+// MODAL
+// ══════════════════════════════════════════
+const openM = id => document.getElementById(id).classList.add('open');
+const closeM = id => document.getElementById(id).classList.remove('open');
+document.querySelectorAll('.modal-overlay').forEach(el => el.addEventListener('click', e => { if(e.target===el) el.classList.remove('open'); }));
+
+// ══════════════════════════════════════════
+// TOAST
+// ══════════════════════════════════════════
+function toast(msg, type='success'){
+  const el = document.getElementById('toast');
+  el.textContent=msg; el.className='toast show '+type;
+  clearTimeout(el._t); el._t=setTimeout(()=>el.className='toast',3000);
+}
+
+// ══════════════════════════════════════════
+// ORG MODE
+// ══════════════════════════════════════════
+function toggleOrg(){
+  if(S.orgMode){ S.orgMode=false; S.orgKey=null; sessionStorage.removeItem('bcm_sk'); save(); updateOrgBtn(); toast('Mode organisateur désactivé'); render('accueil'); }
+  else{ if(!cur()){ toast('Aucun tournoi actif','error'); return; } openM('orgModal'); }
+}
+function checkCode(){
+  const t=cur(), v=document.getElementById('orgCode').value;
+  if(t&&v===t.orgCode){
+    S.orgMode=true; S.orgKey=v;
+    sessionStorage.setItem('bcm_sk',v);
+    save(); closeM('orgModal'); updateOrgBtn();
+    document.getElementById('orgCode').value='';
+    toast('Mode organisateur activé ✓'); render('accueil');
+  } else toast('Code incorrect','error');
+}
+function updateOrgBtn(){
+  const on=S.orgMode;
+  document.getElementById('orgBtn').className='org-pill'+(on?' on':'');
+  document.getElementById('orgLabel').textContent=on?'Actif':'Organisateur';
+  const sb=document.getElementById('specBtn');
+  if(sb) sb.style.display=cur()?'flex':'none';
+}
+
+// ══════════════════════════════════════════
+// TOURNOI — CREATE / LOAD
+// ══════════════════════════════════════════
+function openCreateModal(){
+  tmpTerrains = [];
+  buildFmtPanel('cFmtPoules', DEFAULT_FMT(), 'Format Poules', 'cFmt_poules');
+  buildFmtPanel('cFmtFinale', {...DEFAULT_FMT(), type:'sets', sets_bo:3}, 'Format Phase Finale', 'cFmt_bracket');
+  buildFmtPanel('cFmtConsolante', {...DEFAULT_FMT(), type:'supertb'}, 'Format Consolante', 'cFmt_consolante');
+  renderTerrainList('cTerrains');
+  openM('createModal');
+}
+
+function createTournament(){
+  const name = document.getElementById('cName').value.trim();
+  const code = document.getElementById('cCode').value.trim();
+  if(!name){ toast('Entrez un nom','error'); return; }
+  if(!code){ toast('Choisissez un code','error'); return; }
+  const t = {
+    id: uid(), name,
+    date: document.getElementById('cDate').value,
+    lieu: document.getElementById('cLieu').value,
+    orgCode: code,
+    bracketStart: document.getElementById('cBracketStart').value,
+    maxTeams: 32,
+    poolSize: parseInt(document.getElementById('cPoolSize').value)||4,
+    qualified: parseInt(document.getElementById('cQual').value)||2,
+    fmtPool: readFmt('cFmt_poules'),
+    fmtBracket: readFmt('cFmt_bracket'),
+    fmtConsolante: readFmt('cFmt_consolante'),
+    terrains: tmpTerrains.map((tr,i) => ({...tr, name: tr.name||'Terrain '+(i+1)})),
+    teams:[], pools:[], poolMatches:[],
+    bracket:[], consolante:[],
+    phase:'registration',
+    bracketPhase:0, consolantePhase:0,
+    winner:null, winnerC:null,
+    createdAt: new Date().toISOString()
+  };
+  S.tournaments.push(t); S.currentId=t.id; S.orgMode=true; S.orgKey=code;
+  sessionStorage.setItem('bcm_sk',code);
+  tmpTerrains=[];
+  save(); closeM('createModal'); updateOrgBtn(); toast('Tournoi créé !'); render('accueil');
+}
+
+function loadTournament(id){
+  S.currentId=id; S.orgMode=false; S.orgKey=null;
+  const sk=sessionStorage.getItem('bcm_sk');
+  const t=S.tournaments.find(x=>x.id===id);
+  if(t&&sk===t.orgCode){ S.orgMode=true; S.orgKey=sk; }
+  save(); updateOrgBtn(); toast('Tournoi chargé'); switchTab('accueil');
+}
+
+// ══════════════════════════════════════════
+// ÉQUIPES
+// ══════════════════════════════════════════
+function registerTeam(){
+  const t=cur(); if(!t) return;
+  const p1=document.getElementById('jP1').value.trim();
+  const p2=document.getElementById('jP2').value.trim();
+  if(!p1||!p2){ toast('Remplissez les deux noms','error'); return; }
+  if(t.teams.length>=t.maxTeams){ toast('Tournoi complet','error'); return; }
+  t.teams.push({id:uid(), name:p1+' / '+p2});
+  document.getElementById('jP1').value=''; document.getElementById('jP2').value='';
+  save(); closeM('joinModal'); toast('Équipe inscrite !'); render('accueil');
+}
+function removeTeam(id){ const t=cur(); if(!t||t.phase!=='registration') return; t.teams=t.teams.filter(x=>x.id!==id); save(); render('accueil'); }
+
+// ══════════════════════════════════════════
+// POULES — GÉNÉRATION & CLASSEMENTS
+// ══════════════════════════════════════════
+function generatePools(){
+  const t=cur(); if(!t||t.teams.length<4){ toast('Minimum 4 équipes','error'); return; }
+  const sh=[...t.teams].sort(()=>Math.random()-.5);
+  const pools=[]; let i=0;
+  while(i<sh.length){
+    let sz=t.poolSize, rem=sh.length-i;
+    if(rem<t.poolSize&&rem>0) sz=rem;
+    pools.push({id:pools.length, teams:sh.slice(i,i+sz)}); i+=sz;
+  }
+  if(pools.length>1&&pools[pools.length-1].teams.length<2){ const last=pools.pop(); pools[pools.length-1].teams.push(...last.teams); }
+  t.pools=pools; t.poolMatches=[];
+  pools.forEach((p,pi)=>{
+    for(let a=0;a<p.teams.length;a++)
+      for(let b=a+1;b<p.teams.length;b++)
+        t.poolMatches.push({id:`p${pi}_${a}_${b}`,pool:pi,t1:p.teams[a].id,t2:p.teams[b].id,score:null,validated:false,terrain:null,time:null});
+  });
+  t.phase='pools'; save(); toast('Poules générées !'); switchTab('poules');
+}
+
+function poolStandings(pool, matches){
+  const st=pool.teams.map(tm=>({id:tm.id,name:tm.name,pts:0,w:0,d:0,l:0,sw:0,sl:0,pw:0,pl:0}));
+  matches.filter(m=>m.validated&&m.score).forEach(m=>{
+    const a=st.find(s=>s.id===m.t1), b=st.find(s=>s.id===m.t2); if(!a||!b) return;
+    const [s1,s2]=m.score;
+    // score représente toujours [points/sets/jeux equipe1, equipe2]
+    a.sw+=s1; a.sl+=s2; b.sw+=s2; b.sl+=s1;
+    if(s1>s2){ a.pts+=3; a.w++; b.l++; }
+    else if(s2>s1){ b.pts+=3; b.w++; a.l++; }
+    else{ a.pts++; b.pts++; a.d++; b.d++; }
+  });
+  return st.sort((a,b)=>b.pts-a.pts||(b.sw-b.sl)-(a.sw-a.sl)||b.sw-a.sw);
+}
+
+// ══════════════════════════════════════════
+// MOTEUR DE SCORE UNIVERSEL
+// ══════════════════════════════════════════
+function findMatch(t, matchId, source){
+  if(source==='pool') return t.poolMatches.find(m=>m.id===matchId);
+  if(source==='bracket') return t.bracket.flat().find(m=>m.id===matchId);
+  return t.consolante.flat().find(m=>m.id===matchId);
+}
+
+function openScoreModal(matchId, source){
+  const t=cur(); if(!t) return;
+  const match=findMatch(t, matchId, source);
+  if(!match) return;
+  if(match.bye){ toast('Match exempté — pas de score à saisir'); return; }
+
+  const tm1=t.teams.find(x=>x.id===match.t1), tm2=t.teams.find(x=>x.id===match.t2);
+  const n1=tm1?tm1.name:'Équipe 1', n2=tm2?tm2.name:'Équipe 2';
+  const phaseKey = source==='pool'?'pool':source==='bracket'?'bracket':'consolante';
+  // Format par match (override) ou format de la phase
+  const fmt = match.fmtOverride || getFmt(t, phaseKey);
+
+  document.getElementById('scoreMTitle').textContent='Score du match';
+  document.getElementById('scoreMBody').innerHTML = buildScoreUI(matchId, source, n1, n2, fmt, match, phaseKey);
+  openM('scoreModal');
+
+  if(fmt.type==='time'||fmt.type==='timecap'){ initScoreTimer(fmt); }
+}
+
+function buildScoreUI(matchId, source, n1, n2, fmt, match, phaseKey){
+  const prev = match.scoreDetail || null;
+  const hasOverride = !!match.fmtOverride;
+
+  // ── HEADER : noms des équipes, impossibles à rater ──
+  let body = `<div style="background:var(--s3);border:1px solid var(--border2);border-radius:var(--rs);padding:14px 16px;margin-bottom:16px">
+    <div style="font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text3);margin-bottom:10px">Match</div>
+    <div style="display:flex;align-items:center;gap:10px">
+      <div style="flex:1;background:var(--s4);border:1px solid var(--border2);border-radius:8px;padding:10px 12px;text-align:center">
+        <div style="font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--bcm-l);margin-bottom:4px">Équipe 1</div>
+        <div style="font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:700;color:var(--text);line-height:1.2">${n1}</div>
+      </div>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--text3);font-weight:300;flex-shrink:0">vs</div>
+      <div style="flex:1;background:var(--s4);border:1px solid var(--border2);border-radius:8px;padding:10px 12px;text-align:center">
+        <div style="font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--bcm-l);margin-bottom:4px">Équipe 2</div>
+        <div style="font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:700;color:var(--text);line-height:1.2">${n2}</div>
+      </div>
+    </div>
+  </div>`;
+
+  // ── FORMAT : badge + bouton pour changer le format de CE match ──
+  body += `<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+    <div style="display:flex;align-items:center;gap:8px">
+      ${fmtBadge(fmt)}
+      <span style="font-size:11px;color:var(--text3)">${FORMATS[fmt.type]?.desc||''}</span>
+      ${hasOverride?`<span style="font-size:9px;font-weight:700;color:var(--orange);background:var(--orange-dim);padding:2px 7px;border-radius:10px;border:1px solid rgba(224,140,42,0.3)">Format custom</span>`:''}
+    </div>
+    ${S.orgMode?`<button class="btn btn-ghost btn-xs" onclick="openMatchFmtPicker('${matchId}','${source}','${phaseKey||'pool'}')">⚙ Changer</button>`:''}
+  </div>`;
+
+  if(fmt.type==='sets'){
+    body += buildSetsUI(n1, n2, fmt, prev);
+  } else if(fmt.type==='games'){
+    body += buildGamesUI(n1, n2, fmt, prev);
+  } else if(fmt.type==='supertb'){
+    body += buildTiebreakUI(n1, n2, fmt.supertb_pts, 'Super Tie-Break', prev);
+  } else if(fmt.type==='tb'){
+    body += buildTiebreakUI(n1, n2, fmt.tb_pts, 'Tie-Break', prev);
+  } else if(fmt.type==='time'){
+    body += buildTimeUI(n1, n2, fmt.time_duration, false, 0, prev);
+  } else if(fmt.type==='timecap'){
+    body += buildTimeUI(n1, n2, fmt.timecap_duration, true, fmt.timecap_pts, prev);
+  } else {
+    body += buildCustomUI(n1, n2, prev);
+  }
+
+  body += `<div style="margin-top:16px">
+    <button class="btn btn-success btn-block" onclick="valScore('${matchId}','${source}')">✓ Valider le score</button>
+    ${match.validated?`<button class="btn btn-outline btn-block" style="margin-top:6px" onclick="unvalScore('${matchId}','${source}')">Annuler la validation</button>`:''}
+  </div>`;
+  return body;
+}
+
+// FORMAT SETS CLASSIQUES
+function buildSetsUI(n1, n2, fmt, prev){
+  const bo = fmt.sets_bo || 3;
+  const superTb = fmt.sets_super_tb;
+  const toWin = Math.ceil(bo/2);
+  let html = `<div class="info-box" style="margin-bottom:12px">Best of ${bo} — Victoire à ${toWin} set(s)${superTb?' + Super TB décisif':''}</div>`;
+
+  // En-têtes colonnes avec noms
+  html += `<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;padding:0 0 0 58px">
+    <div style="flex:1;text-align:center;font-size:11px;font-weight:700;color:var(--bcm-l);letter-spacing:.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${n1}</div>
+    <div style="width:20px"></div>
+    <div style="flex:1;text-align:center;font-size:11px;font-weight:700;color:var(--bcm-l);letter-spacing:.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${n2}</div>
+    <div style="width:36px"></div>
+  </div>`;
+
+  for(let s=0; s<bo; s++){
+    const isDecisif = s===bo-1 && superTb;
+    const v1 = prev && prev[s] ? prev[s][0] : '';
+    const v2 = prev && prev[s] ? prev[s][1] : '';
+    html += `<div class="score-set-row">
+      <div class="score-set-label">${isDecisif?'Super TB':`Set ${s+1}`}</div>
+      <div class="score-set-inputs">
+        <input type="number" id="sg${s}a" min="0" max="${isDecisif?99:7}" value="${v1}" placeholder="0" class="score-inp" style="width:64px">
+        <div class="score-set-sep">—</div>
+        <input type="number" id="sg${s}b" min="0" max="${isDecisif?99:7}" value="${v2}" placeholder="0" class="score-inp" style="width:64px">
+        <div style="font-size:11px;color:var(--text3);margin-left:4px">${isDecisif?'pts':'jeux'}</div>
+      </div>
+    </div>`;
+  }
+  return html;
+}
+
+// FORMAT JEUX LIMITÉS
+function buildGamesUI(n1, n2, fmt, prev){
+  const bo = fmt.games_bo || 3;
+  const max = fmt.games_max || 6;
+  let html = `<div class="info-box" style="margin-bottom:12px">Best of ${bo} — Max ${max} jeux par set, pas de déuce</div>`;
+  html += `<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;padding:0 0 0 58px">
+    <div style="flex:1;text-align:center;font-size:11px;font-weight:700;color:var(--bcm-l);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${n1}</div>
+    <div style="width:20px"></div>
+    <div style="flex:1;text-align:center;font-size:11px;font-weight:700;color:var(--bcm-l);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${n2}</div>
+    <div style="width:36px"></div>
+  </div>`;
+  for(let s=0; s<bo; s++){
+    const v1 = prev && prev[s] ? prev[s][0] : '';
+    const v2 = prev && prev[s] ? prev[s][1] : '';
+    html += `<div class="score-set-row">
+      <div class="score-set-label">Set ${s+1}</div>
+      <div class="score-set-inputs">
+        <input type="number" id="sg${s}a" min="0" max="${max}" value="${v1}" placeholder="0" class="score-inp" style="width:64px">
+        <div class="score-set-sep">—</div>
+        <input type="number" id="sg${s}b" min="0" max="${max}" value="${v2}" placeholder="0" class="score-inp" style="width:64px">
+        <div style="font-size:11px;color:var(--text3);margin-left:4px">/ ${max}</div>
+      </div>
+    </div>`;
+  }
+  return html;
+}
+
+// FORMAT TIEBREAK (super tb ou tb classique)
+function buildTiebreakUI(n1, n2, pts, label, prev){
+  const v1 = prev && prev[0] ? prev[0][0] : 0;
+  const v2 = prev && prev[0] ? prev[0][1] : 0;
+  return `
+    <div class="info-box" style="margin-bottom:14px">Premier à ${pts} points (avec 2 pts d'écart)</div>
+    <div class="score-teams-row">
+      <div class="score-team-col">
+        <div class="score-team-name">${n1}</div>
+        <div class="score-stepper">
+          <button class="score-stepper-btn" onclick="stepScore('tb_a',1)">＋</button>
+          <div class="score-stepper-val" id="tb_a_val">${v1}</div>
+          <input type="hidden" id="sg0a" value="${v1}">
+          <button class="score-stepper-btn" onclick="stepScore('tb_a',-1)">－</button>
+        </div>
+      </div>
+      <div class="score-vs">${label}</div>
+      <div class="score-team-col">
+        <div class="score-team-name">${n2}</div>
+        <div class="score-stepper">
+          <button class="score-stepper-btn" onclick="stepScore('tb_b',1)">＋</button>
+          <div class="score-stepper-val" id="tb_b_val">${v2}</div>
+          <input type="hidden" id="sg0b" value="${v2}">
+          <button class="score-stepper-btn" onclick="stepScore('tb_b',-1)">－</button>
+        </div>
+      </div>
+    </div>`;
+}
+
+// FORMAT AU TEMPS
+function buildTimeUI(n1, n2, duration, capped, capPts, prev){
+  const v1 = prev && prev[0] ? prev[0][0] : 0;
+  const v2 = prev && prev[0] ? prev[0][1] : 0;
+  const durSecs = duration * 60;
+  return `
+    <div class="info-box" style="margin-bottom:14px">${capped?`Match de ${duration} min ou premier à ${capPts} pts`:`Match de ${duration} min — points libres`}</div>
+    <div class="timer-display" id="scoreTimer">${fmtTime(durSecs)}</div>
+    <div class="timer-controls">
+      <button class="btn btn-success btn-sm" id="timerStartBtn" onclick="startScoreTimer(${durSecs})">▶ Démarrer</button>
+      <button class="btn btn-outline btn-sm" onclick="resetScoreTimer(${durSecs})">↺ Reset</button>
+    </div>
+    <div class="score-teams-row">
+      <div class="score-team-col">
+        <div class="score-team-name">${n1}</div>
+        <div class="score-stepper">
+          <button class="score-stepper-btn" onclick="stepScore('tb_a',1)">＋</button>
+          <div class="score-stepper-val" id="tb_a_val">${v1}</div>
+          <input type="hidden" id="sg0a" value="${v1}">
+          <button class="score-stepper-btn" onclick="stepScore('tb_a',-1)">－</button>
+        </div>
+        ${capped?`<div style="font-size:10px;color:var(--text3);margin-top:4px">Max ${capPts} pts</div>`:''}
+      </div>
+      <div class="score-vs">pts</div>
+      <div class="score-team-col">
+        <div class="score-team-name">${n2}</div>
+        <div class="score-stepper">
+          <button class="score-stepper-btn" onclick="stepScore('tb_b',1)">＋</button>
+          <div class="score-stepper-val" id="tb_b_val">${v2}</div>
+          <input type="hidden" id="sg0b" value="${v2}">
+          <button class="score-stepper-btn" onclick="stepScore('tb_b',-1)">－</button>
+        </div>
+        ${capped?`<div style="font-size:10px;color:var(--text3);margin-top:4px">Max ${capPts} pts</div>`:''}
+      </div>
+    </div>`;
+}
+
+// FORMAT CUSTOM
+function buildCustomUI(n1, n2, prev){
+  const v1 = prev && prev[0] ? prev[0][0] : '';
+  const v2 = prev && prev[0] ? prev[0][1] : '';
+  return `
+    <div class="form-group"><label>Score libre équipe 1 — ${n1}</label>
+      <input id="sg0a" value="${v1}" placeholder="Ex: 6/4 7/5" style="font-size:16px">
+    </div>
+    <div class="form-group"><label>Score libre équipe 2 — ${n2}</label>
+      <input id="sg0b" value="${v2}" placeholder="Ex: 4/6 5/7" style="font-size:16px">
+    </div>
+    <div class="form-group"><label>Équipe gagnante *</label>
+      <div class="winner-select-row">
+        <div class="winner-btn" id="wbtn1" onclick="selectWinner(1)">${n1}</div>
+        <div class="winner-btn" id="wbtn2" onclick="selectWinner(2)">${n2}</div>
+      </div>
+    </div>`;
+}
+
+// ══════════════════════════════════════════
+// FORMAT PAR MATCH (override)
+// ══════════════════════════════════════════
+let _pendingFmtMatch = null;
+
+function openMatchFmtPicker(matchId, source, phaseKey){
+  const t=cur(); if(!t) return;
+  const match=findMatch(t, matchId, source);
+  if(!match) return;
+  _pendingFmtMatch = {matchId, source, phaseKey};
+
+  const currentFmt = match.fmtOverride || getFmt(t, phaseKey);
+  const tm1=t.teams.find(x=>x.id===match.t1), tm2=t.teams.find(x=>x.id===match.t2);
+  const n1=tm1?tm1.name:'Eq.1', n2=tm2?tm2.name:'Eq.2';
+
+  // Réutiliser le modal de score pour afficher le picker (on le remplace temporairement)
+  document.getElementById('scoreMTitle').textContent='Format de ce match';
+  const phaseFmt = getFmt(t, phaseKey);
+
+  let body = `<div style="background:var(--s3);border:1px solid var(--border2);border-radius:var(--rs);padding:10px 14px;margin-bottom:14px;font-size:13px;color:var(--text2)">
+    <strong style="color:var(--text)">${n1}</strong> <span style="color:var(--text3)">vs</span> <strong style="color:var(--text)">${n2}</strong>
+  </div>`;
+
+  if(match.fmtOverride){
+    body += `<div class="warn-box" style="margin-bottom:12px">⚠ Format personnalisé actif pour ce match. <button class="btn btn-ghost btn-xs" style="margin-left:8px" onclick="resetMatchFmt('${matchId}','${source}','${phaseKey}')">Revenir au format de la phase</button></div>`;
+  } else {
+    body += `<div class="info-box" style="margin-bottom:12px">Format de la phase : ${fmtBadge(phaseFmt)} ${FORMATS[phaseFmt.type]?.label}. Choisissez un format différent pour ce match uniquement.</div>`;
+  }
+
+  body += `<div id="matchFmt_wrap"></div>`;
+  body += `<div style="display:flex;gap:8px;margin-top:14px">
+    <button class="btn btn-primary" style="flex:1" onclick="saveMatchFmt()">Appliquer à ce match</button>
+    <button class="btn btn-outline btn-sm" onclick="cancelMatchFmt()">Annuler</button>
+  </div>`;
+
+  document.getElementById('scoreMBody').innerHTML = body;
+  buildFmtPanel('matchFmt_wrap', currentFmt, 'Format pour ce match', 'matchFmt');
+}
+
+function saveMatchFmt(){
+  if(!_pendingFmtMatch) return;
+  const {matchId, source, phaseKey} = _pendingFmtMatch;
+  const t=cur(); if(!t) return;
+  const match=findMatch(t, matchId, source);
+  if(!match) return;
+  match.fmtOverride = readFmt('matchFmt');
+  save(); _pendingFmtMatch=null;
+  toast('Format du match mis à jour ✓');
+  // Rouvrir le modal de score avec le nouveau format
+  openScoreModal(matchId, source);
+}
+
+function resetMatchFmt(matchId, source, phaseKey){
+  const t=cur(); if(!t) return;
+  const match=findMatch(t, matchId, source);
+  if(!match) return;
+  delete match.fmtOverride;
+  save(); _pendingFmtMatch=null;
+  toast('Format de la phase restauré');
+  openScoreModal(matchId, source);
+}
+
+function cancelMatchFmt(){
+  if(!_pendingFmtMatch) return;
+  const {matchId, source} = _pendingFmtMatch;
+  _pendingFmtMatch=null;
+  openScoreModal(matchId, source);
+}
+
+let _selectedWinner = 0;
+function selectWinner(n){
+  _selectedWinner = n;
+  document.getElementById('wbtn1').classList.toggle('selected', n===1);
+  document.getElementById('wbtn2').classList.toggle('selected', n===2);
+}
+
+// STEPPER pour tiebreak/temps
+function stepScore(side, delta){
+  const valId = side+'_val';
+  const inpId = side==='tb_a'?'sg0a':'sg0b';
+  const valEl = document.getElementById(valId);
+  const inpEl = document.getElementById(inpId);
+  if(!valEl||!inpEl) return;
+  let v = parseInt(inpEl.value)||0;
+  v = Math.max(0, v+delta);
+  valEl.textContent = v;
+  inpEl.value = v;
+}
+
+// TIMER
+function fmtTime(secs){
+  const m = Math.floor(secs/60), s=secs%60;
+  return `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+}
+
+function initScoreTimer(fmt){ /* timer initialized via startScoreTimer onclick */ }
+
+function startScoreTimer(totalSecs){
+  if(scoreTimerInterval) return;
+  scoreTimerEl = document.getElementById('scoreTimer');
+  const startBtn = document.getElementById('timerStartBtn');
+  if(startBtn){ startBtn.textContent='⏸ En cours'; startBtn.disabled=true; }
+  let remaining = parseInt(scoreTimerEl.dataset.remaining || totalSecs);
+  scoreTimerEl.dataset.remaining = remaining;
+  scoreTimerEl.classList.add('running');
+  scoreTimerInterval = setInterval(()=>{
+    remaining--;
+    scoreTimerEl.dataset.remaining = remaining;
+    scoreTimerEl.textContent = fmtTime(remaining);
+    if(remaining<=60) scoreTimerEl.classList.add('urgent');
+    if(remaining<=0){
+      clearInterval(scoreTimerInterval);
+      scoreTimerInterval=null;
+      scoreTimerEl.textContent='TEMPS !';
+      toast('⏱ Temps écoulé !');
+    }
+  }, 1000);
+}
+
+function resetScoreTimer(totalSecs){
+  clearInterval(scoreTimerInterval);
+  scoreTimerInterval=null;
+  const el=document.getElementById('scoreTimer');
+  if(el){ el.textContent=fmtTime(totalSecs); el.dataset.remaining=totalSecs; el.classList.remove('running','urgent'); }
+  const btn=document.getElementById('timerStartBtn');
+  if(btn){ btn.textContent='▶ Démarrer'; btn.disabled=false; }
+}
+
+// ══════════════════════════════════════════
+// VALIDER / INVALIDER SCORE
+// ══════════════════════════════════════════
+function valScore(matchId, source){
+  const t=cur(); if(!t) return;
+  const match=findMatch(t, matchId, source);
+  if(!match) return;
+  const fmt = getFmt(t, source==='pool'?'pool':source==='bracket'?'bracket':'consolante');
+
+  // Arrêter le timer si actif
+  if(scoreTimerInterval){ clearInterval(scoreTimerInterval); scoreTimerInterval=null; }
+
+  let score, scoreDetail, winner;
+
+  try{
+    if(fmt.type==='sets' || fmt.type==='games'){
+      const bo = fmt.type==='sets' ? (fmt.sets_bo||3) : (fmt.games_bo||3);
+      const sets=[]; let w1=0, w2=0;
+      for(let s=0; s<bo; s++){
+        const ea=document.getElementById(`sg${s}a`), eb=document.getElementById(`sg${s}b`);
+        if(!ea||!eb) continue;
+        if(ea.value===''&&eb.value==='') continue;
+        const g1=ea.value===''?0:parseInt(ea.value), g2=eb.value===''?0:parseInt(eb.value);
+        if(isNaN(g1)||isNaN(g2)){ toast('Score invalide','error'); return; }
+        sets.push([g1,g2]);
+        if(g1>g2) w1++; else if(g2>g1) w2++;
+      }
+      if(!sets.length){ toast('Entrez au moins un set','error'); return; }
+      if(w1===w2){ toast('Égalité impossible — un gagnant requis','error'); return; }
+      score=[w1,w2]; scoreDetail=sets; winner=w1>w2?match.t1:match.t2;
+
+    } else if(fmt.type==='supertb'||fmt.type==='tb'){
+      const v1=parseInt(document.getElementById('sg0a').value)||0;
+      const v2=parseInt(document.getElementById('sg0b').value)||0;
+      if(v1===v2){ toast('Égalité impossible — un gagnant requis','error'); return; }
+      score=[v1>v2?1:0, v2>v1?1:0]; scoreDetail=[[v1,v2]]; winner=v1>v2?match.t1:match.t2;
+
+    } else if(fmt.type==='time'||fmt.type==='timecap'){
+      const v1=parseInt(document.getElementById('sg0a').value)||0;
+      const v2=parseInt(document.getElementById('sg0b').value)||0;
+      if(v1===v2){ toast('Égalité impossible — un gagnant requis','error'); return; }
+      score=[v1>v2?1:0, v2>v1?1:0]; scoreDetail=[[v1,v2]]; winner=v1>v2?match.t1:match.t2;
+
+    } else {
+      // custom
+      if(!_selectedWinner){ toast('Sélectionnez le gagnant','error'); return; }
+      const sa=document.getElementById('sg0a').value||'—';
+      const sb=document.getElementById('sg0b').value||'—';
+      score=_selectedWinner===1?[1,0]:[0,1];
+      scoreDetail=[[sa,sb]];
+      winner=_selectedWinner===1?match.t1:match.t2;
+      _selectedWinner=0;
+    }
+  }catch(err){ toast('Erreur de saisie','error'); return; }
+
+  match.score=score; match.scoreDetail=scoreDetail; match.validated=true;
+  save(); closeM('scoreModal'); toast('Score validé ✓');
+
+  // Propager gagnant bracket si nécessaire
+  if(source==='bracket'||source==='consolante'){
+    const rounds=source==='bracket'?t.bracket:t.consolante;
+    let ri=-1, mi=-1;
+    for(let r=0;r<rounds.length;r++){ const idx=rounds[r].findIndex(m=>m.id===matchId); if(idx!==-1){ri=r;mi=idx;break;} }
+    if(ri!==-1) advWinner(rounds,ri,mi,winner);
+  }
+  save();
+  render(source==='pool'?'poules':source==='bracket'?'finale':'finale');
+}
+
+function unvalScore(matchId, source){
+  const t=cur(); if(!t) return;
+  const match=findMatch(t, matchId, source);
+  if(!match) return;
+  if(source==='pool'){ match.validated=false; }
+  else{
+    const rounds=source==='bracket'?t.bracket:t.consolante;
+    let ri=-1, mi=-1;
+    for(let r=0;r<rounds.length;r++){ const idx=rounds[r].findIndex(m=>m.id===matchId); if(idx!==-1){ri=r;mi=idx;break;} }
+    if(match){ match.validated=false; let cr=ri, cm=mi;
+      while(cr+1<rounds.length){ const nr=cr+1,nm=Math.floor(cm/2),nx=rounds[nr][nm]; if(!nx) break;
+        if(cm%2===0) nx.t1=null; else nx.t2=null;
+        nx.validated=false; nx.score=null; delete nx.scoreDetail; cr=nr; cm=nm; }
+    }
+  }
+  closeM('scoreModal'); save();
+  render(source==='pool'?'poules':'finale');
+}
+
+// ══════════════════════════════════════════
+// SCORE DISPLAY HELPER
+// ══════════════════════════════════════════
+function scoreDisplay(match, fmt){
+  if(!match.validated||!match.score) return `<span style="font-size:12px;color:var(--text3)">À jouer</span>`;
+  const [s1,s2]=match.score;
+  const detail=match.scoreDetail;
+  const type=fmt?.type||'sets';
+
+  let main='', sub='';
+
+  if(type==='supertb'||type==='tb'){
+    if(detail&&detail[0]) main=`${detail[0][0]} — ${detail[0][1]}`;
+    else main=`${s1>s2?'W':'—'} — ${s2>s1?'W':'—'}`;
+    sub = type==='supertb'?'Super TB':'Tie-break';
+  } else if(type==='time'||type==='timecap'){
+    if(detail&&detail[0]) main=`${detail[0][0]} — ${detail[0][1]}`;
+    else main=s1>s2?'Victoire':'Défaite';
+    sub='pts';
+  } else if(type==='custom'){
+    if(detail&&detail[0]) main=`${detail[0][0]} | ${detail[0][1]}`;
+    else main=s1>s2?'Équipe 1':'Équipe 2';
+    sub='custom';
+  } else {
+    // sets ou games : afficher set par set
+    if(detail&&detail.length){
+      main=detail.map(([a,b])=>`${a}/${b}`).join(' · ');
+      sub=`(${s1} — ${s2} sets)`;
+    } else {
+      main=`${s1} — ${s2}`;
+      sub='sets';
+    }
+  }
+
+  return `<div><div class="mc-score">${main}</div>${sub?`<div class="mc-score-detail">${sub}</div>`:''}</div>`;
+}
+
+// ══════════════════════════════════════════
+// CLÔTURE POULES & BRACKET
+// ══════════════════════════════════════════
+function closePools(){
+  const t=cur();
+  const unval=t.poolMatches.filter(m=>!m.validated).length;
+  if(unval>0&&!confirm(`${unval} match(s) non validé(s). Continuer quand même ?`)) return;
+
+  let qualified=[], eliminated=[];
+  t.pools.forEach(p=>{
+    const pm=t.poolMatches.filter(m=>m.pool===p.id);
+    const st=poolStandings(p,pm);
+    qualified.push(...st.slice(0,t.qualified));
+    eliminated.push(...st.slice(t.qualified));
+  });
+  if(qualified.length<2){ toast('Pas assez de qualifiés','error'); return; }
+
+  const cfg=t.bracketStart||'auto';
+  let targetSize;
+  if(cfg==='4') targetSize=4;
+  else if(cfg==='8') targetSize=8;
+  else if(cfg==='16') targetSize=16;
+  else{
+    if(qualified.length<=4) targetSize=4;
+    else if(qualified.length<=8) targetSize=8;
+    else if(qualified.length<=16) targetSize=16;
+    else{ targetSize=16; while(targetSize<qualified.length) targetSize*=2; }
+  }
+  while(targetSize>4&&qualified.length+eliminated.length<targetSize/2) targetSize/=2;
+
+  const missing=targetSize-qualified.length;
+  if(missing>0&&missing<=4&&eliminated.length>0){
+    eliminated.sort((a,b)=>b.pts-a.pts||(b.sw-b.sl)-(a.sw-a.sl)||b.sw-a.sw);
+    pendingRep={qualified,eliminated,targetSize,missing};
+    const opts=eliminated.map(e=>`<option value="${e.id}">${e.name} — ${e.pts} pts / Diff ${e.sw-e.sl>0?'+':''}${e.sw-e.sl}</option>`).join('');
+    document.getElementById('repSelect').innerHTML=opts;
+    document.getElementById('repText').innerHTML=
+      `Tableau <strong>${getPhaseNameBySize(targetSize)}</strong> — il manque <strong>${missing}</strong> équipe(s). Choisissez le(s) repêché(s) :`;
+    openM('repModal');
+  } else {
+    buildFinalPhases(qualified, eliminated, targetSize);
+  }
+}
+
+function submitRep(){
+  const sel=document.getElementById('repSelect').value;
+  if(!sel){ toast('Sélectionnez une équipe','error'); return; }
+  const data=pendingRep;
+  const idx=data.eliminated.findIndex(e=>e.id===sel);
+  if(idx!==-1) data.qualified.push(data.eliminated.splice(idx,1)[0]);
+  while(data.qualified.length<data.targetSize&&data.eliminated.length>0) data.qualified.push(data.eliminated.shift());
+  closeM('repModal'); buildFinalPhases(data.qualified, data.eliminated, data.targetSize);
+}
+function submitRepAuto(){
+  const data=pendingRep;
+  while(data.qualified.length<data.targetSize&&data.eliminated.length>0) data.qualified.push(data.eliminated.shift());
+  closeM('repModal'); buildFinalPhases(data.qualified, data.eliminated, data.targetSize);
+}
+
+function getPhaseNameBySize(n){
+  if(n===2) return 'Finale'; if(n===4) return 'Demi-finales'; if(n===8) return 'Quarts de finale'; if(n===16) return '1/8 de finale'; return `Tableau de ${n}`;
+}
+
+// ══════════════════════════════════════════
+// GÉNÉRATION BRACKET
+// ══════════════════════════════════════════
+function buildFinalPhases(qualified, eliminated, targetSize){
+  const t=cur();
+  const seeds=[...qualified];
+  const slots=[];
+  let lo=0, hi=seeds.length-1;
+  while(lo<=hi){ if(lo===hi){slots.push(seeds[lo]);lo++;}else{slots.push(seeds[lo]);slots.push(seeds[hi]);lo++;hi--;} }
+  while(slots.length<targetSize) slots.push(null);
+
+  const rounds=[]; const r1=[];
+  for(let i=0;i<targetSize/2;i++){
+    const a=slots[i*2]||null, b=slots[i*2+1]||null;
+    const m={id:uid(),round:0,mi:i,t1:a?a.id:null,t2:b?b.id:null,score:null,validated:false,bye:false,terrain:null,time:null};
+    if(m.t1&&!m.t2){m.bye=true;m.validated=true;m.score=[1,0];}
+    if(!m.t1&&m.t2){m.bye=true;m.validated=true;m.score=[0,1];}
+    r1.push(m);
+  }
+  rounds.push(r1);
+  let prev=r1.length, ri=1;
+  while(prev>1){ const r=[]; for(let i=0;i<prev/2;i++) r.push({id:uid(),round:ri,mi:i,t1:null,t2:null,score:null,validated:false,bye:false,terrain:null,time:null}); rounds.push(r); prev=r.length; ri++; }
+  t.bracket=rounds; t.bracketPhase=0;
+  r1.forEach((m,i)=>{ if(m.bye) advWinner(t.bracket,0,i,m.score[0]>m.score[1]?m.t1:m.t2); });
+
+  t.consolante=[]; t.consolantePhase=0;
+  if(eliminated.length>=2){
+    let csz=2; while(csz<eliminated.length) csz*=2;
+    const cRounds=[], cr1=[];
+    for(let i=0;i<csz/2;i++){
+      const a=eliminated[i*2]||null, b=eliminated[i*2+1]||null;
+      const m={id:uid(),round:0,mi:i,t1:a?a.id:null,t2:b?b.id:null,score:null,validated:false,bye:false,terrain:null,time:null};
+      if(m.t1&&!m.t2){m.bye=true;m.validated=true;m.score=[1,0];}
+      if(!m.t1&&m.t2){m.bye=true;m.validated=true;m.score=[0,1];}
+      cr1.push(m);
+    }
+    cRounds.push(cr1);
+    let cprev=cr1.length, cri=1;
+    while(cprev>1){ const r=[]; for(let i=0;i<cprev/2;i++) r.push({id:uid(),round:cri,mi:i,t1:null,t2:null,score:null,validated:false,bye:false}); cRounds.push(r); cprev=r.length; cri++; }
+    t.consolante=cRounds;
+    cr1.forEach((m,i)=>{ if(m.bye) advWinner(t.consolante,0,i,m.score[0]>m.score[1]?m.t1:m.t2); });
+  }
+
+  t.phase='bracket'; save();
+  toast(`Tableau ${getPhaseNameBySize(targetSize)} généré !`);
+  switchTab('finale');
+}
+
+function advWinner(rounds, rIdx, mIdx, winnerId){
+  if(rIdx+1>=rounds.length) return;
+  const next=rounds[rIdx+1][Math.floor(mIdx/2)]; if(!next) return;
+  if(mIdx%2===0) next.t1=winnerId; else next.t2=winnerId;
+}
+
+function getPhaseLabel(ri, total){
+  const fe=total-1-ri;
+  if(fe===0) return 'Finale'; if(fe===1) return 'Demi-finales'; if(fe===2) return 'Quarts de finale'; if(fe===3) return '1/8 de finale'; return `Tour ${ri+1}`;
+}
+
+// ══════════════════════════════════════════
+// AVANCER LES TOURS
+// ══════════════════════════════════════════
+function closeRound(){
+  const t=cur(); if(!t) return;
+  const rounds=t.bracket, cur2=t.bracketPhase;
+  const curMs=rounds[cur2];
+  if(!curMs.every(m=>m.validated||m.bye)){
+    if(!confirm('Des matchs ne sont pas validés. Continuer quand même ?')) return;
+  }
+  curMs.forEach((m,i)=>{ if((m.validated||m.bye)&&m.score){ const w=m.score[0]>m.score[1]?m.t1:m.t2; if(w) advWinner(rounds,cur2,i,w); } });
+
+  if(t.consolante&&t.consolante.length>0){
+    const cp=t.consolantePhase||0;
+    if(cp<t.consolante.length){
+      const cMs=t.consolante[cp];
+      cMs.forEach((m,i)=>{ if((m.validated||m.bye)&&m.score){ const w=m.score[0]>m.score[1]?m.t1:m.t2; if(w) advWinner(t.consolante,cp,i,w); } });
+      if(cp+1<t.consolante.length) t.consolantePhase=cp+1;
+      else{ const finC=t.consolante[t.consolante.length-1][0]; if(finC?.validated&&finC.score) t.winnerC=finC.score[0]>finC.score[1]?finC.t1:finC.t2; }
+    }
+  }
+
+  const next=cur2+1;
+  if(next>=rounds.length){
+    const fin=rounds[rounds.length-1][0];
+    if(fin?.validated&&fin.score) t.winner=fin.score[0]>fin.score[1]?fin.t1:fin.t2;
+    t.phase='finished'; save(); toast('Tournoi terminé ! 🏆'); switchTab('classement');
+  } else {
+    t.bracketPhase=next; save();
+    toast(getPhaseLabel(next,rounds.length)+' — en piste !'); render('finale');
+  }
+}
+
+function closeTournament(){ if(!confirm('Clôturer définitivement ce tournoi ?')) return; cur().phase='finished'; save(); toast('Tournoi clôturé'); render('accueil'); }
+
+// ══════════════════════════════════════════
+// VUE SPECTATEUR / JOUEUR
+// ══════════════════════════════════════════
+function openSpectateur(){
+  const t=cur(); if(!t) return;
+  document.getElementById('specTitle').textContent=t.name;
+  document.getElementById('specMeta').textContent=[t.date,t.lieu].filter(Boolean).join(' · ')||'BCM Sports · Padel';
+  renderSpecContent(t);
+  document.getElementById('specView').classList.remove('hidden');
+}
+
+function closeSpectateur(){ document.getElementById('specView').classList.add('hidden'); }
+
+function renderSpecContent(t){
+  const c=document.getElementById('specContent');
+  let html='';
+
+  // Phase actuelle
+  const phaseLabels={registration:'Inscriptions',pools:'Phase de poules',bracket:'Phase finale',finished:'Terminé'};
+  html+=`<div style="display:flex;align-items:center;gap:10px;margin-bottom:20px">
+    <span class="pill pill-p">${phaseLabels[t.phase]||t.phase}</span>
+    <span style="font-size:13px;color:var(--text2)">${t.teams.length} équipes · ${t.pools.length||0} poules</span>
+  </div>`;
+
+  // Matchs en cours / à venir (poules)
+  if(t.phase==='pools'){
+    const pending=t.poolMatches.filter(m=>!m.validated);
+    const done=t.poolMatches.filter(m=>m.validated);
+
+    if(pending.length){
+      html+=`<div class="spec-section"><div class="spec-section-title">Matchs à jouer</div>`;
+      pending.slice(0,8).forEach(m=>{
+        const tm1=t.teams.find(x=>x.id===m.t1), tm2=t.teams.find(x=>x.id===m.t2);
+        if(!tm1||!tm2) return;
+        const tname=getTerrainLabel(t,m.terrain);
+        html+=`<div class="spec-match next">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">
+            ${tname?`<div class="terrain-badge"><div class="terrain-dot"></div>${tname}</div>`:''}
+            ${m.time?`<span style="font-size:11px;color:var(--text2)">${m.time}</span>`:''}
+          </div>
+          <div class="spec-match-teams">${tm1.name} <span style="color:var(--text3);font-weight:400;font-size:13px">vs</span> ${tm2.name}</div>
+          <div class="spec-match-meta">Poule ${String.fromCharCode(65+(m.pool||0))}</div>
+        </div>`;
+      });
+      html+=`</div>`;
+    }
+
+    if(done.length){
+      html+=`<div class="spec-section"><div class="spec-section-title">Résultats récents</div>`;
+      done.slice().reverse().slice(0,5).forEach(m=>{
+        const tm1=t.teams.find(x=>x.id===m.t1), tm2=t.teams.find(x=>x.id===m.t2);
+        if(!tm1||!tm2) return;
+        const fmt=getFmt(t,'pool');
+        html+=`<div class="spec-match ok">
+          <div class="spec-match-teams">${tm1.name} <span style="color:var(--text3);font-size:13px;font-weight:400">vs</span> ${tm2.name}</div>
+          <div style="margin-top:4px">${scoreDisplay(m,fmt)}</div>
+        </div>`;
+      });
+      html+=`</div>`;
+    }
+
+    // Classements poules résumé
+    html+=`<div class="spec-section"><div class="spec-section-title">Classements</div>`;
+    t.pools.forEach((p,pi)=>{
+      const pm=t.poolMatches.filter(m=>m.pool===pi);
+      const st=poolStandings(p,pm);
+      html+=`<div style="margin-bottom:12px"><div style="font-size:11px;font-weight:700;color:var(--bcm-l);letter-spacing:1px;margin-bottom:6px">Poule ${String.fromCharCode(65+pi)}</div>`;
+      st.forEach((s,i)=>{ html+=`<div style="display:flex;align-items:center;gap:8px;padding:6px 10px;background:var(--s2);border-radius:6px;margin-bottom:4px;${i<t.qualified?'border-left:2px solid var(--bcm)':''}">
+        <span style="font-size:12px;font-weight:700;color:var(--text3);width:16px">${i+1}</span>
+        <span style="flex:1;font-size:13px;font-weight:${i<t.qualified?700:500}">${s.name}</span>
+        <span style="font-size:12px;font-weight:700;color:var(--bcm-l)">${s.pts} pts</span>
+        ${i<t.qualified?`<span class="pill pill-p" style="font-size:9px">Q</span>`:''}
+      </div>`; });
+      html+=`</div>`;
+    });
+    html+=`</div>`;
+  }
+
+  // Phase finale
+  if(t.phase==='bracket'||t.phase==='finished'){
+    const curR=t.bracketPhase||0;
+    const curMs=t.bracket[curR]||[];
+    const fmt=getFmt(t,'bracket');
+    html+=`<div class="spec-section"><div class="spec-section-title">Phase Finale · ${getPhaseLabel(curR,t.bracket.length)}</div>`;
+    curMs.forEach(m=>{
+      if(m.bye) return;
+      const tm1=t.teams.find(x=>x.id===m.t1), tm2=t.teams.find(x=>x.id===m.t2);
+      if(!tm1||!tm2) return;
+      const tname=getTerrainLabel(t,m.terrain);
+      html+=`<div class="spec-match${m.validated?' ok':' next'}">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">
+          ${tname?`<div class="terrain-badge"><div class="terrain-dot"></div>${tname}</div>`:''}
+          ${m.time?`<span style="font-size:11px;color:var(--text2)">${m.time}</span>`:''}
+        </div>
+        <div class="spec-match-teams">${tm1.name} <span style="color:var(--text3);font-weight:400;font-size:13px">vs</span> ${tm2.name}</div>
+        ${m.validated?`<div style="margin-top:6px">${scoreDisplay(m,fmt)}</div>`:''}
+      </div>`;
+    });
+    html+=`</div>`;
+  }
+
+  // Gagnant
+  if(t.phase==='finished'&&t.winner){
+    const w=t.teams.find(x=>x.id===t.winner);
+    html+=`<div class="winner-card"><div class="winner-trophy">🏆</div><div class="winner-label">Champion du tournoi</div><div class="winner-name">${w?w.name:'—'}</div></div>`;
+  }
+
+  // QR code + lien partagé
+  html+=`<div class="spec-section" style="margin-top:28px"><div class="spec-section-title">Partager ce tournoi</div>
+    <div class="share-link-box">
+      <div class="share-link-url" id="shareUrl">${window.location.href}</div>
+      <button class="btn btn-ghost btn-xs" onclick="copyShareUrl()">Copier</button>
+    </div>
+    <div style="text-align:center;margin-top:16px">
+      <div class="qr-wrap" id="qrWrap">
+        <canvas id="qrCanvas" width="160" height="160"></canvas>
+        <div class="qr-label">Scanner pour accéder au tournoi</div>
+      </div>
+    </div>
+  </div>`;
+
+  c.innerHTML=html;
+  // Dessiner QR code simple (représentation ASCII visuelle en canvas)
+  drawSimpleQR();
+}
+
+function copyShareUrl(){
+  const url=window.location.href;
+  if(navigator.clipboard){ navigator.clipboard.writeText(url).then(()=>toast('Lien copié !')); }
+  else{ const el=document.createElement('textarea'); el.value=url; document.body.appendChild(el); el.select(); document.execCommand('copy'); document.body.removeChild(el); toast('Lien copié !'); }
+}
+
+function drawSimpleQR(){
+  const canvas=document.getElementById('qrCanvas'); if(!canvas) return;
+  const ctx=canvas.getContext('2d');
+  // QR simplifié : pattern visuel représentatif (non fonctionnel comme vrai QR)
+  // Pour un vrai QR, utiliser qrcode.js en production
+  ctx.fillStyle='#ffffff'; ctx.fillRect(0,0,160,160);
+  ctx.fillStyle='#1a0d2e';
+  const cells=21, cs=Math.floor(160/cells);
+  // Coins
+  [[0,0],[0,14],[14,0]].forEach(([r,c])=>{
+    ctx.fillRect(c*cs,r*cs,7*cs,7*cs);
+    ctx.fillStyle='#ffffff'; ctx.fillRect((c+1)*cs,(r+1)*cs,5*cs,5*cs);
+    ctx.fillStyle='#1a0d2e'; ctx.fillRect((c+2)*cs,(r+2)*cs,3*cs,3*cs);
+    ctx.fillStyle='#1a0d2e';
+  });
+  // Pattern aléatoire mais cohérent pour le reste
+  const seed=S.currentId||'bcm';
+  let h=0; for(let i=0;i<seed.length;i++) h=(h*31+seed.charCodeAt(i))&0xffffffff;
+  for(let r=0;r<cells;r++) for(let c=0;c<cells;c++){
+    if((r<8&&c<8)||(r<8&&c>12)||(r>12&&c<8)) continue;
+    h=(h*1103515245+12345)&0x7fffffff;
+    if(h%3===0){ ctx.fillStyle='#1a0d2e'; ctx.fillRect(c*cs,r*cs,cs,cs); }
+  }
+  // Label BCM
+  ctx.fillStyle='#7B3F8C'; ctx.font='bold 10px sans-serif'; ctx.textAlign='center';
+  ctx.fillText('BCM SPORTS',80,155);
+}
+
+// ══════════════════════════════════════════
+// RENDU ACCUEIL
+// ══════════════════════════════════════════
+function rAccueil(){
+  const t=cur();
+  if(!t){
+    document.getElementById('tab-accueil').innerHTML=`
+      <div style="text-align:center;padding:48px 0 32px">
+        <div style="font-family:'Cormorant Garamond',serif;font-size:64px;font-weight:700;letter-spacing:4px;line-height:.9;background:linear-gradient(135deg,var(--bcm-xl),var(--bcm-l));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">BCM</div>
+        <div style="font-size:13px;font-weight:700;letter-spacing:5px;text-transform:uppercase;color:var(--text3);margin:10px 0 8px">Sports</div>
+        <div style="font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--text2);letter-spacing:2px;font-style:italic">Padel · Compétitions</div>
+      </div>
+      <button class="btn btn-primary btn-block" style="font-size:15px;padding:14px" onclick="openCreateModal()">Créer un tournoi</button>
+      ${S.tournaments.length?`<div class="section-title" style="margin-top:24px">Tournois récents</div>
+        ${S.tournaments.slice().reverse().slice(0,3).map(x=>`<div class="t-item" onclick="loadTournament('${x.id}')">
+          <div><div class="t-name">${x.name}</div><div class="t-meta">${x.date||'—'} · ${x.teams.length} équipes</div></div>
+          <span class="t-badge ${x.phase==='finished'?'done':'live'}">${{registration:'Inscriptions',pools:'Poules',bracket:'Finale',finished:'Terminé'}[x.phase]}</span>
+        </div>`).join('')}
+        <div style="margin-top:8px"><button class="btn btn-ghost btn-sm" onclick="switchTab('historique')">Voir tout l'historique →</button></div>`:''}
+    `; return;
+  }
+
+  const phase={registration:'Inscriptions ouvertes',pools:'Phase de poules',bracket:'Phase finale',finished:'Terminé'}[t.phase];
+  const pct=Math.round((t.teams.length/t.maxTeams)*100);
+  const isFinale=t.phase==='bracket';
+  const curR=t.bracketPhase||0;
+  const roundMs=isFinale?t.bracket[curR]:[];
+  const done=roundMs.filter(m=>m.validated||m.bye).length;
+  const allDone=roundMs.length>0&&done>=roundMs.length;
+
+  document.getElementById('tab-accueil').innerHTML=`
+    <div class="hero">
+      <div class="hero-eyebrow">BCM Sports · Padel Tour</div>
+      <h2>${t.name}</h2>
+      <div class="hero-meta">${[t.date,t.lieu].filter(Boolean).join(' · ')||'Compétition de padel'}</div>
+      <div class="stats-grid">
+        <div class="stat-card"><div class="stat-val">${t.teams.length}</div><div class="stat-lbl">Équipes</div></div>
+        <div class="stat-card"><div class="stat-val">${t.pools.length||'—'}</div><div class="stat-lbl">Poules</div></div>
+        <div class="stat-card"><div class="stat-val" style="font-size:${phase.length>8?'13px':'18px'};margin-top:${phase.length>8?'8px':'4px'};color:var(--gold)">${phase}</div><div class="stat-lbl">Phase</div></div>
+      </div>
+    </div>
+
+    ${t.phase==='registration'?`
+    <div class="card">
+      <div class="card-title">Inscriptions</div>
+      <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:6px;color:var(--text2)">
+        <span>Places</span><span style="font-weight:700;color:var(--text)">${t.teams.length} / ${t.maxTeams}</span>
+      </div>
+      <div class="progress-track"><div class="progress-fill" style="width:${pct}%"></div></div>
+      <div style="display:flex;flex-wrap:wrap;gap:0;margin-top:14px">
+        ${t.teams.map(tm=>`<div class="team-tag">${tm.name}${S.orgMode?`<button class="del" onclick="removeTeam('${tm.id}')">✕</button>`:''}</div>`).join('')}
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:14px">
+        <button class="btn btn-outline btn-sm" onclick="openM('joinModal')">+ Inscrire une équipe</button>
+        ${S.orgMode&&t.teams.length>=4?`<button class="btn btn-primary btn-sm" onclick="generatePools()">Générer les poules →</button>`:''}
+      </div>
+    </div>`:''}
+
+    ${t.phase==='pools'?`
+    <div class="phase-banner">
+      <div>
+        <div class="phase-label">Phase de poules</div>
+        <div class="phase-sub">${t.poolMatches.filter(m=>m.validated).length} / ${t.poolMatches.length} matchs validés</div>
+        <div class="progress-track" style="margin-top:8px;width:180px"><div class="progress-fill" style="width:${Math.round(t.poolMatches.filter(m=>m.validated).length/t.poolMatches.length*100)}%"></div></div>
+      </div>
+      ${S.orgMode?`<button class="btn btn-gold btn-sm" onclick="closePools()">${t.poolMatches.every(m=>m.validated)?'Clôturer les poules →':'Forcer la clôture'}</button>`:''}
+    </div>`:''}
+
+    ${isFinale?`
+    <div class="phase-banner">
+      <div>
+        <div class="phase-label">Tableau Principal · ${getPhaseLabel(curR,t.bracket.length)}</div>
+        <div class="phase-sub">${done} / ${roundMs.length} matchs validés</div>
+      </div>
+      ${S.orgMode?`<button class="btn btn-gold btn-sm" onclick="closeRound()">${allDone?(curR>=t.bracket.length-1?'Terminer 🏆':'Tour suivant →'):'Forcer la suite'}</button>`:''}
+    </div>`:''}
+
+    ${t.phase==='finished'?`
+    <div class="winner-card">
+      <div class="winner-trophy">🏆</div>
+      <div class="winner-label">Champion du tournoi</div>
+      <div class="winner-name">${t.winner?(t.teams.find(x=>x.id===t.winner)||{name:'—'}).name:'—'}</div>
+    </div>`:''}
+
+    <div class="card">
+      <div style="display:flex;align-items:center;gap:12px;cursor:pointer;padding:12px 14px;background:var(--s2);border:1px solid var(--border);border-radius:var(--rs)" onclick="toggleOrg()">
+        <div style="width:40px;height:22px;border-radius:11px;background:${S.orgMode?'linear-gradient(135deg,var(--bcm-d),var(--bcm))':'var(--s4)'};position:relative;transition:.2s;flex-shrink:0;border:1px solid ${S.orgMode?'transparent':'var(--border2)'}">
+          <div style="position:absolute;width:18px;height:18px;background:white;border-radius:50%;top:1px;left:${S.orgMode?'19px':'1px'};transition:.2s;box-shadow:0 1px 4px rgba(0,0,0,.3)"></div>
+        </div>
+        <div>
+          <div style="font-size:14px;font-weight:600;color:var(--text)">Mode organisateur</div>
+          <div style="font-size:11px;color:var(--text2)">${S.orgMode?'Actif — saisie des scores possible':'Entrez votre code pour gérer'}</div>
+        </div>
+      </div>
+      ${S.orgMode?`
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px">
+        <button class="btn btn-ghost btn-xs" onclick="openFmtModal()">⚙ Formats de score</button>
+        ${t.phase!=='finished'?`<button class="btn btn-outline btn-xs" onclick="closeTournament()" style="color:var(--red);border-color:rgba(224,85,85,.3)">Clôturer</button>`:''}
+        <button class="btn btn-ghost btn-xs" onclick="newTournoi()">+ Nouveau tournoi</button>
+      </div>
+      <div class="section-title" style="margin-top:14px">Formats actuels</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        ${fmtBadge(t.fmtPool)} Poules
+        ${fmtBadge(t.fmtBracket)} Finale
+        ${t.consolante?.length?fmtBadge(t.fmtConsolante)+' Consolante':''}
+      </div>`:''}
+    </div>
+  `;
+}
+
+function newTournoi(){
+  if(confirm('Créer un nouveau tournoi ? L\'actuel est conservé dans l\'historique.')){
+    S.currentId=null; S.orgMode=false; S.orgKey=null;
+    sessionStorage.removeItem('bcm_sk');
+    save(); updateOrgBtn(); openCreateModal();
+  }
+}
+
+// ══════════════════════════════════════════
+// RENDU POULES
+// ══════════════════════════════════════════
+function rPoules(){
+  const t=cur();
+  if(!t||t.phase==='registration'){ document.getElementById('tab-poules').innerHTML=`<div class="empty"><div class="ico">📊</div><p>Les poules apparaîtront une fois les inscriptions clôturées.</p></div>`; return; }
+  const fmt=getFmt(t,'pool');
+  let html=`<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+    <div style="display:flex;align-items:center;gap:8px">${fmtBadge(fmt)} <span style="font-size:12px;color:var(--text2)">${FORMATS[fmt.type]?.desc||''}</span></div>
+    ${S.orgMode?`<button class="btn btn-ghost btn-xs" onclick="openFmtModal()">⚙ Format</button>`:''}
+  </div>`;
+  t.pools.forEach((p,pi)=>{
+    const pm=t.poolMatches.filter(m=>m.pool===pi);
+    const st=poolStandings(p,pm);
+    html+=`<div class="pool-block">
+      <div class="pool-hdr">
+        <div class="pool-hdr-name">Poule ${String.fromCharCode(65+pi)}</div>
+        <span class="pill pill-p">${p.teams.length} équipes</span>
+      </div>
+      <table class="ptbl">
+        <thead><tr><th style="text-align:left;padding-left:14px">Équipe</th><th>Pts</th><th>V</th><th>D</th><th>Détail</th></tr></thead>
+        <tbody>
+          ${st.map((s,i)=>`<tr class="${i<t.qualified?'q':''}">
+            <td class="tn">${s.name}</td>
+            <td style="font-weight:700;color:var(--bcm-l)">${s.pts}</td>
+            <td>${s.w}</td><td>${s.l}</td>
+            <td style="font-size:11px;color:var(--text2)">${s.sw}/${s.sl}</td>
+          </tr>`).join('')}
+        </tbody>
+      </table>
+      <div style="padding:10px">
+        ${pm.map(m=>{
+          const tm1=t.teams.find(x=>x.id===m.t1), tm2=t.teams.find(x=>x.id===m.t2);
+          if(!tm1||!tm2) return '';
+          const tname=getTerrainLabel(t,m.terrain);
+          return`<div class="mc ${m.validated?'ok':''}">
+            <div class="mc-top">
+              <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">
+                ${tname?`<div class="terrain-badge"><div class="terrain-dot"></div>${tname}</div>`:''}
+                ${m.time?`<span style="font-size:11px;color:var(--text2)">${m.time}</span>`:''}
+              </div>
+              ${m.validated?`<span class="mc-badge">✓</span>`:''}
+            </div>
+            <div class="mc-teams">${tm1.name} <span class="mc-vs">vs</span> ${tm2.name}</div>
+            <div class="mc-bottom">
+              ${scoreDisplay(m,fmt)}
+              <div style="display:flex;gap:6px;flex-shrink:0">
+                ${S.orgMode&&t.terrains?.length?`<button class="btn btn-ghost btn-xs" onclick="openTerrainModal('${m.id}','pool')">📍</button>`:''}
+                ${S.orgMode?`<button class="btn btn-sm ${m.validated?'btn-outline':'btn-primary'}" onclick="openScoreModal('${m.id}','pool')">${m.validated?'Modifier':'Score'}</button>`:''}
+              </div>
+            </div>
+          </div>`;
+        }).join('')}
+      </div>
+    </div>`;
+  });
+
+  // ── Bouton clôture directement dans l'onglet Poules ──
+  if(S.orgMode && t.phase==='pools'){
+    const total=t.poolMatches.length, done=t.poolMatches.filter(m=>m.validated).length;
+    const allDone=done===total;
+    html+=`<div style="margin-top:20px;padding:16px;background:${allDone?'linear-gradient(135deg,rgba(201,168,76,0.08),rgba(123,63,140,0.05))':'var(--s2)'};border:1px solid ${allDone?'rgba(201,168,76,0.25)':'var(--border)'};border-radius:var(--r)">
+      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px">
+        <div>
+          <div style="font-size:14px;font-weight:700;color:var(--text)">${allDone?'✓ Tous les matchs validés':'Clôture des poules'}</div>
+          <div style="font-size:12px;color:var(--text2);margin-top:3px">${done} / ${total} matchs validés</div>
+        </div>
+        <button class="btn ${allDone?'btn-gold':'btn-primary'} btn-sm" onclick="closePools()">
+          ${allDone?'Clôturer les poules →':'Forcer la clôture'}
+        </button>
+      </div>
+      ${!allDone?`<div class="progress-track" style="margin-top:10px"><div class="progress-fill" style="width:${Math.round(done/total*100)}%"></div></div>`:''}
+    </div>`;
+  }
+
+  document.getElementById('tab-poules').innerHTML=html;
+}
+
+// ══════════════════════════════════════════
+// RENDU FINALE
+// ══════════════════════════════════════════
+function rFinale(){
+  const t=cur();
+  if(!t||!['bracket','finished'].includes(t.phase)){ document.getElementById('tab-finale').innerHTML=`<div class="empty"><div class="ico">🏆</div><p>La phase finale sera disponible après la clôture des poules.</p></div>`; return; }
+
+  const fmt=getFmt(t,'bracket');
+  const fmtC=getFmt(t,'consolante');
+  const curR=t.bracketPhase||0;
+  const curMs=t.bracket[curR]||[];
+  const done=curMs.filter(m=>m.validated||m.bye).length;
+  const allDone=curMs.length>0&&done>=curMs.length;
+  const isLast=curR>=t.bracket.length-1;
+
+  let html=`<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+    <div style="display:flex;align-items:center;gap:8px">${fmtBadge(fmt)} <span style="font-size:12px;color:var(--text2)">Phase finale</span></div>
+    ${S.orgMode?`<button class="btn btn-ghost btn-xs" onclick="openFmtModal()">⚙ Format</button>`:''}
+  </div>`;
+
+  if(t.phase==='bracket'){
+    html+=`<div class="phase-banner">
+      <div>
+        <div class="phase-label">Tableau Principal · ${getPhaseLabel(curR,t.bracket.length)}</div>
+        <div class="phase-sub">${done} / ${curMs.length} matchs · ${allDone?'<span style="color:var(--green)">Tous validés ✓</span>':'en cours'}</div>
+      </div>
+      ${S.orgMode?`<button class="btn btn-gold btn-sm" onclick="closeRound()">${allDone?(isLast?'Terminer 🏆':'Tour suivant →'):'Forcer la suite'}</button>`:''}
+    </div>`;
+  }
+
+  html+=`<div class="section-title">Tableau Principal · ${getPhaseLabel(curR,t.bracket.length)}</div>`;
+  html+=curMs.map(m=>{
+    const tm1=t.teams.find(x=>x.id===m.t1), tm2=t.teams.find(x=>x.id===m.t2);
+    const n1=tm1?tm1.name:'À déterminer', n2=tm2?tm2.name:'À déterminer';
+    if(m.bye) return `<div class="mc bye"><div class="mc-teams">${n1}</div><span class="mc-bye-badge">Exempté — qualifié d'office</span></div>`;
+    const canClick=S.orgMode&&t.phase==='bracket';
+    const tname=getTerrainLabel(t,m.terrain);
+    return `<div class="mc ${m.validated?'ok':''}">
+      <div class="mc-top">
+        <div style="display:flex;align-items:center;gap:6px">
+          ${tname?`<div class="terrain-badge"><div class="terrain-dot"></div>${tname}</div>`:''}
+          ${m.time?`<span style="font-size:11px;color:var(--text2)">${m.time}</span>`:''}
+        </div>
+        ${m.validated?`<span class="mc-badge">✓ Validé</span>`:''}
+      </div>
+      <div class="mc-teams">${n1} <span class="mc-vs">vs</span> ${n2}</div>
+      <div class="mc-bottom">
+        ${scoreDisplay(m,fmt)}
+        <div style="display:flex;gap:6px;flex-shrink:0">
+          ${canClick&&t.terrains?.length?`<button class="btn btn-ghost btn-xs" onclick="openTerrainModal('${m.id}','bracket')">📍</button>`:''}
+          ${canClick?`<button class="btn btn-sm ${m.validated?'btn-outline':'btn-primary'}" onclick="openScoreModal('${m.id}','bracket')">${m.validated?'Modifier':'Score'}</button>`:''}
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+
+  html+=`<div class="section-title" style="margin-top:24px">Arbre du tableau</div>`;
+  html+=buildBracketTree(t.bracket, curR, false);
+
+  if(t.consolante&&t.consolante.length>0){
+    const cp=t.consolantePhase||0;
+    const cMs=t.consolante[cp]||[];
+    const clabel=getPhaseLabel(cp,t.consolante.length);
+    html+=`<div class="section-title" style="margin-top:28px">Consolante · ${clabel} ${fmtBadge(fmtC)}</div>`;
+    html+=cMs.map(m=>{
+      const tm1=t.teams.find(x=>x.id===m.t1), tm2=t.teams.find(x=>x.id===m.t2);
+      const n1=tm1?tm1.name:'À déterminer', n2=tm2?tm2.name:'À déterminer';
+      if(m.bye) return `<div class="mc bye"><div class="mc-teams">${n1}</div><span class="mc-bye-badge">Exempté</span></div>`;
+      const canClick=S.orgMode&&t.phase==='bracket';
+      const tname=getTerrainLabel(t,m.terrain);
+      return `<div class="mc ${m.validated?'ok':''}">
+        <div class="mc-top">
+          <div style="display:flex;align-items:center;gap:6px">
+            ${tname?`<div class="terrain-badge"><div class="terrain-dot"></div>${tname}</div>`:''}
+            ${m.time?`<span style="font-size:11px;color:var(--text2)">${m.time}</span>`:''}
+          </div>
+          ${m.validated?`<span class="mc-badge">✓</span>`:''}
+        </div>
+        <div class="mc-teams">${n1} <span class="mc-vs">vs</span> ${n2}</div>
+        <div class="mc-bottom">
+          ${scoreDisplay(m,fmtC)}
+          <div style="display:flex;gap:6px;flex-shrink:0">
+            ${canClick&&t.terrains?.length?`<button class="btn btn-ghost btn-xs" onclick="openTerrainModal('${m.id}','consolante')">📍</button>`:''}
+            ${canClick?`<button class="btn btn-sm ${m.validated?'btn-outline':'btn-primary'}" onclick="openScoreModal('${m.id}','consolante')">${m.validated?'Modifier':'Score'}</button>`:''}
+          </div>
+        </div>
+      </div>`;
+    }).join('');
+    html+=buildBracketTree(t.consolante, cp, true);
+  }
+
+  document.getElementById('tab-finale').innerHTML=html;
+}
+
+function buildBracketTree(rounds, activeRound, isC){
+  const t=cur();
+  let html=`<div class="bracket-wrap"><div class="bracket-tree">`;
+  rounds.forEach((rnd,ri)=>{
+    const lbl=getPhaseLabel(ri,rounds.length);
+    html+=`<div class="bround"><div class="bround-title">${lbl}</div>`;
+    rnd.forEach(m=>{
+      const tm1=t.teams.find(x=>x.id===m.t1), tm2=t.teams.find(x=>x.id===m.t2);
+      const n1=tm1?shorten(tm1.name):'...', n2=m.bye?'Exempté':(tm2?shorten(tm2.name):'...');
+      const winner=m.validated&&m.score?(m.score[0]>m.score[1]?m.t1:m.t2):null;
+      const cls=m.bye?'bye':(m.validated?'ok':(ri===activeRound?'active':''));
+      const src=isC?'consolante':'bracket';
+      const clickable=S.orgMode&&ri===activeRound&&!m.bye;
+      html+=`<div class="bm ${cls}" ${clickable?`onclick="openScoreModal('${m.id}','${src}')" style="cursor:pointer"`:''}">
+        <div class="bm-row ${m.validated&&winner===m.t1?'win':(m.validated?'lose':'pending')}">
+          <span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:110px">${n1}</span>
+          ${m.validated&&m.scoreDetail&&!m.bye?`<span class="bsc">${m.scoreDetail.map(s=>s[0]).join('/')}</span>`:''}
+        </div>
+        <div class="bm-row ${m.bye?'bye-row':(m.validated&&winner===m.t2?'win':(m.validated?'lose':'pending'))}">
+          <span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:110px">${n2}</span>
+          ${m.validated&&m.scoreDetail&&!m.bye?`<span class="bsc">${m.scoreDetail.map(s=>s[1]).join('/')}</span>`:''}
+        </div>
+      </div>`;
+    });
+    html+=`</div>`;
+  });
+  html+=`</div></div>`;
+  return html;
+}
+
+// ══════════════════════════════════════════
+// RENDU CLASSEMENT
+// ══════════════════════════════════════════
+function rClassement(){
+  const t=cur();
+  if(!t||t.phase==='registration'){ document.getElementById('tab-classement').innerHTML=`<div class="empty"><div class="ico">🥇</div><p>Le classement sera disponible après les poules.</p></div>`; return; }
+  let html='';
+  if(t.phase==='finished'){
+    if(t.winner){ const w=t.teams.find(x=>x.id===t.winner); html+=`<div class="winner-card"><div class="winner-trophy">🏆</div><div class="winner-label">Champion du tournoi</div><div class="winner-name">${w?w.name:'—'}</div></div>`; }
+    if(t.winnerC){ const w=t.teams.find(x=>x.id===t.winnerC); html+=`<div class="winner-card" style="background:linear-gradient(135deg,rgba(138,143,160,0.08),rgba(123,63,140,0.04));border-color:rgba(138,143,160,0.18)"><div class="winner-trophy" style="font-size:2rem">🥈</div><div class="winner-label">Vainqueur Consolante</div><div class="winner-name" style="color:var(--text)">${w?w.name:'—'}</div></div>`; }
+  }
+  html+=`<div class="section-title">Classement des poules</div>`;
+  let all=[];
+  t.pools.forEach((p,pi)=>{
+    const pm=t.poolMatches.filter(m=>m.pool===pi);
+    poolStandings(p,pm).forEach((s,i)=>all.push({...s,pool:pi+1,rank:i+1,q:i<t.qualified}));
+  });
+  all.sort((a,b)=>b.pts-a.pts||(b.sw-b.sl)-(a.sw-a.sl)||b.sw-a.sw);
+  all.forEach((s,i)=>{
+    html+=`<div class="rank-item ${i===0?'r1':i===1?'r2':i===2?'r3':''}">
+      <div class="rank-num">${i+1}</div>
+      <div style="flex:1">
+        <div class="rank-name">${s.name}</div>
+        <div class="rank-meta">Poule ${s.pool} · ${s.pts} pts · ${s.w}V ${s.l}D · ${s.sw}/${s.sl}</div>
+      </div>
+      ${s.q?`<span class="pill pill-p">Qualifié</span>`:''}
+    </div>`;
+  });
+  document.getElementById('tab-classement').innerHTML=html;
+}
+
+// ══════════════════════════════════════════
+// RENDU HISTORIQUE
+// ══════════════════════════════════════════
+function rHistorique(){
+  let html=`<div class="section-title">Tous les tournois</div>`;
+  if(!S.tournaments.length){ document.getElementById('tab-historique').innerHTML=html+`<div class="empty"><div class="ico">📁</div><p>Aucun tournoi enregistré.</p></div>`; return; }
+  S.tournaments.slice().reverse().forEach(t=>{
+    const active=t.id===S.currentId;
+    const lbl={registration:'Inscriptions',pools:'Poules',bracket:'Phase finale',finished:'Terminé'}[t.phase];
+    html+=`<div class="t-item" onclick="loadTournament('${t.id}')">
+      <div>
+        <div class="t-name">${t.name}${active?` <span style="font-size:11px;color:var(--bcm-l);font-weight:400">(actif)</span>`:''}</div>
+        <div class="t-meta">${[t.date,t.lieu].filter(Boolean).join(' · ')||'—'} · ${t.teams.length} équipes</div>
+      </div>
+      <span class="t-badge ${t.phase==='finished'?'done':'live'}">${lbl}</span>
+    </div>`;
+  });
+  html+=`<div style="margin-top:16px"><button class="btn btn-primary btn-sm" onclick="openCreateModal()">+ Nouveau tournoi</button></div>`;
+  document.getElementById('tab-historique').innerHTML=html;
+}
+
+// ══════════════════════════════════════════
+// UTILS
+// ══════════════════════════════════════════
+function shorten(name){
+  if(name.length<=20) return name;
+  return name.split(' / ').map(p=>{ const w=p.split(' '); return w.length>1?w[0][0]+'. '+w.slice(1).join(' '):p; }).join(' / ');
+}
+
+// ══════════════════════════════════════════
+// INIT
+// ══════════════════════════════════════════
+load(); updateOrgBtn(); render('accueil');
+</script>
+</body>
+</html>
